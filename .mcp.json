@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "code-review-graph": {
+      "command": "C:\\Users\\saadd\\pipx\\venvs\\code-review-graph\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "code_review_graph",
+        "serve"
+      ],
+      "cwd": "D:\\2 - Work\\Agentra\\Clients\\Dive Dream\\dive-dream",
+      "type": "stdio"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+import type { CTAButton, ContactInfo, NavLink, SectionHeading, SocialLink } from './common';
+import type { Course } from './course';
+import type { Activity } from './activity';
+import type { FAQItem } from './faq';
+
+// ─── Website-wide settings (nav, footer, contact) — Strapi single type ────
+
+export interface WebsiteSettings {
+  siteName: string;
+  tagline: string;
+  logo: string;
+  contact: ContactInfo;
+  socialLinks: SocialLink[];
+  navLinks: NavLink[];
+  secondaryLinks: NavLink[];
+  utilityBadges: string[];
+  footer: {
+    description: string;
+    badges: string[];
+    columns: { title: string; links: NavLink[] }[];
+    legalLinks: NavLink[];
+    copyrightText: string;
+  };
+}
+
+// ─── Homepage — Strapi single type ─────────────────────────────────────────
+
+export interface Homepage {
+  hero: {
+    eyebrow: string;
+    titleLine1: string;
+    titleLine2: string;
+    description: string;
+    primaryCta: CTAButton;
+    secondaryCta: CTAButton;
+    trustBadge: { years: string; label: string; ratingCount: number };
+  };
+  heroSlides: { image: string; title: string; subtitle: string }[];
+  trustStats: Activity[];
+  promotionBanner: {
+    eyebrow: string;
+    promotionId: string;
+    countdown: { days: string; hours: string; mins: string };
+    ctaLabel: string;
+  };
+  featuredDiveSites: {
+    heading: string;
+    ctaLabel: string;
+  };
+  quickFeatures: Activity[];
+  packagesSection: SectionHeading & { ctaLabel: string };
+  coursesSection: SectionHeading & {
+    coreCoursesLabel: string;
+    specialtyCoursesLabel: string;
+    coreCourses: Pick<Course, 'id' | 'name' | 'overview'>[];
+    specialtyNames: string[];
+    ctaLabel: string;
+  };
+  promotionsSection: SectionHeading & { ctaLabel: string };
+  servicesSection: SectionHeading & { ctaLabel: string };
+  testimonialsSection: SectionHeading;
+  gallerySection: SectionHeading;
+  languagesSection: SectionHeading & {
+    languages: { lang: string; flag: string; label: string }[];
+  };
+  contactSection: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    primaryCtaLabel: string;
+    secondaryCtaLabel: string;
+    mapEyebrow: string;
+    mapTitle: string;
+  };
+}
+
+// ─── About page — Strapi single type ───────────────────────────────────────
+
+export interface AboutPage {
+  hero: SectionHeading;
+  mission: SectionHeading & { points: string[]; image: string };
+  conservation: SectionHeading & { initiatives: Activity[]; image: string };
+}
+
+// ─── Contact page — Strapi single type ─────────────────────────────────────
+
+export interface ContactPage {
+  hero: SectionHeading;
+  channelsHeading: string;
+  safetyNote: { title: string; description: string };
+  formHeading: string;
+  mapConfig: { center: { lat: number; lng: number }; zoom: number; markerTitle: string };
+}
+
+// ─── Simpler "hero + sections" pages — each a Strapi single type ──────────
+
+export interface EquipmentPage {
+  hero: SectionHeading;
+  safetySection: SectionHeading & { paragraphs: string[]; badges: string[]; image: string };
+  diverEquipmentSection: SectionHeading & { paragraph: string; items: string[]; image: string };
+  fleetSection: SectionHeading & { paragraph: string; items: string[]; image: string };
+}
+
+export interface DiveCenterPage {
+  hero: SectionHeading;
+  tourSection: SectionHeading;
+  facilityAreas: Activity[];
+  locationSection: SectionHeading & { address: string; parkingNote: string };
+  mapEmbedUrl: string;
+}
+
+export interface DivingPage {
+  hero: SectionHeading;
+  nitroxSection: SectionHeading & {
+    points: string[];
+    ctaLabel: string;
+    highlightCard: { title: string; description: string; notes: string[] };
+  };
+  rebreatherSection: SectionHeading & {
+    whatIsIt: { title: string; description: string; benefits: Activity[] };
+    idealFor: { title: string; items: Activity[] };
+    enquiry: { description: string; ctaLabel: string };
+  };
+  nitroxFaqs: FAQItem[];
+}
+
+export interface BoatPage {
+  hero: SectionHeading;
+  vesselImage: string;
+  specsSection: SectionHeading & {
+    description: string;
+    specs: { label: string; value: string }[];
+  };
+  featureCards: (Activity & { items: string[] })[];
+}
+
+export interface CoursesPage {
+  hero: SectionHeading;
+  languagesSection: SectionHeading & { languages: string[] };
+  coreCoursesHeading: string;
+  coreCourses: Course[];
+  specialtyCoursesHeading: string;
+  specialtyCourses: Course[];
+  additionalCoursesHeading: string;
+  additionalCourses: Course[];
+  specialtyDivesHeading: string;
+  specialtyDives: { name: string; icon: string }[];
+  ctaSection: { title: string; description: string; primaryCtaLabel: string; secondaryCtaLabel: string };
+}
+
+export interface DiveSitesPage {
+  hero: SectionHeading;
+  mapSection: SectionHeading;
+  mapImage: string;
+  highlightsSection: SectionHeading;
+  certLevels: string[];
+  diveTypes: string[];
+}
+
+export interface PackagesPage {
+  hero: SectionHeading;
+  notice: { title: string; description: string };
+}
+
+export interface PromotionsPage {
+  hero: SectionHeading;
+}
+
+export interface FAQPage {
+  hero: SectionHeading;
+  categories: string[];
+  emergencyNotice: { title: string; description: string; hotlineLabel: string };
+}
+
+export interface ServicesPage {
+  hero: SectionHeading;
+}
+
+export interface CrewPage {
+  hero: SectionHeading;
+}
