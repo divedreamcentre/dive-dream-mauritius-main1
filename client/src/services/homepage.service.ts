@@ -3,13 +3,17 @@ import type { StrapiMedia, StrapiSingleResponse } from '@/types/strapi';
 import { HOMEPAGE, HOME_HERO_BACKGROUNDS } from '@/content';
 import { fetchAPI } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
-import { mapSectionHeading, resolveStrapiMediaUrl, type RawSectionHeading } from '@/lib/strapiMappers';
+import { resolveStrapiMediaUrl } from '@/lib/strapiMappers';
 
-// NOTE: `homepage` doesn't exist in Strapi yet (404) — always falls back to
-// local content today. This is the richest single type in the model; once
-// it's published in Strapi, spot-check this mapper carefully (fields here
-// mirror the original CMS content-model prompt but are unverified against
-// real data).
+// The homepage single type is only partially configured in Strapi right
+// now — several nested components (hero.primaryCta/secondaryCta/trustBadge,
+// promotionBanner.countdown, coursesSection.coreCourses/specialtyNames,
+// languagesSection.languages) aren't filled in yet, and Strapi omits a
+// component's key entirely rather than sending it as null when it's empty.
+// Every section below is merged as `{ ...HOMEPAGE.section, ...entry.section }`
+// so any field Strapi hasn't configured yet quietly inherits the rich local
+// default instead of crashing (`.href`/`.map()` on undefined), while any
+// field that *is* filled in on the CMS takes precedence automatically.
 interface RawActivity {
   id?: number;
   documentId?: string;
@@ -19,28 +23,20 @@ interface RawActivity {
 }
 
 interface RawHomepage {
-  hero: {
-    eyebrow: string;
-    titleLine1: string;
-    titleLine2: string;
-    description: string;
-    primaryCta: Homepage['hero']['primaryCta'];
-    secondaryCta: Homepage['hero']['secondaryCta'];
-    trustBadge: Homepage['hero']['trustBadge'];
-  };
+  hero?: Partial<Homepage['hero']>;
   heroSlides?: { image: StrapiMedia | null; title: string; subtitle: string }[];
   trustStats?: RawActivity[];
-  promotionBanner: Homepage['promotionBanner'];
-  featuredDiveSites: Homepage['featuredDiveSites'];
+  promotionBanner?: Partial<Homepage['promotionBanner']>;
+  featuredDiveSites?: Partial<Homepage['featuredDiveSites']>;
   quickFeatures?: RawActivity[];
-  packagesSection: RawSectionHeading & { ctaLabel: string };
-  coursesSection: RawSectionHeading & Omit<Homepage['coursesSection'], keyof RawSectionHeading>;
-  promotionsSection: RawSectionHeading & { ctaLabel: string };
-  servicesSection: RawSectionHeading & { ctaLabel: string };
-  testimonialsSection: RawSectionHeading;
-  gallerySection: RawSectionHeading;
-  languagesSection: RawSectionHeading & { languages: Homepage['languagesSection']['languages'] };
-  contactSection: Homepage['contactSection'];
+  packagesSection?: Partial<Homepage['packagesSection']>;
+  coursesSection?: Partial<Homepage['coursesSection']>;
+  promotionsSection?: Partial<Homepage['promotionsSection']>;
+  servicesSection?: Partial<Homepage['servicesSection']>;
+  testimonialsSection?: Partial<Homepage['testimonialsSection']>;
+  gallerySection?: Partial<Homepage['gallerySection']>;
+  languagesSection?: Partial<Homepage['languagesSection']>;
+  contactSection?: Partial<Homepage['contactSection']>;
 }
 
 function mapActivity(raw: RawActivity, index: number): Activity {
@@ -57,31 +53,26 @@ export async function getHomepage(): Promise<Homepage> {
     const raw = await fetchAPI<StrapiSingleResponse<RawHomepage>>(ENDPOINTS.homepage);
     const entry = raw.data;
     return {
-      hero: entry.hero,
-      heroSlides: (entry.heroSlides ?? []).map((slide) => ({
-        image: resolveStrapiMediaUrl(slide.image),
-        title: slide.title,
-        subtitle: slide.subtitle,
-      })),
-      trustStats: (entry.trustStats ?? []).map(mapActivity),
-      promotionBanner: entry.promotionBanner,
-      featuredDiveSites: entry.featuredDiveSites,
-      quickFeatures: (entry.quickFeatures ?? []).map(mapActivity),
-      packagesSection: { ...mapSectionHeading(entry.packagesSection), ctaLabel: entry.packagesSection.ctaLabel },
-      coursesSection: {
-        ...mapSectionHeading(entry.coursesSection),
-        coreCoursesLabel: entry.coursesSection.coreCoursesLabel,
-        specialtyCoursesLabel: entry.coursesSection.specialtyCoursesLabel,
-        coreCourses: entry.coursesSection.coreCourses,
-        specialtyNames: entry.coursesSection.specialtyNames,
-        ctaLabel: entry.coursesSection.ctaLabel,
-      },
-      promotionsSection: { ...mapSectionHeading(entry.promotionsSection), ctaLabel: entry.promotionsSection.ctaLabel },
-      servicesSection: { ...mapSectionHeading(entry.servicesSection), ctaLabel: entry.servicesSection.ctaLabel },
-      testimonialsSection: mapSectionHeading(entry.testimonialsSection),
-      gallerySection: mapSectionHeading(entry.gallerySection),
-      languagesSection: { ...mapSectionHeading(entry.languagesSection), languages: entry.languagesSection.languages },
-      contactSection: entry.contactSection,
+      hero: { ...HOMEPAGE.hero, ...entry.hero },
+      heroSlides: entry.heroSlides?.length
+        ? entry.heroSlides.map((slide) => ({
+            image: resolveStrapiMediaUrl(slide.image) || HOMEPAGE.heroSlides[0]?.image,
+            title: slide.title,
+            subtitle: slide.subtitle,
+          }))
+        : HOMEPAGE.heroSlides,
+      trustStats: entry.trustStats?.length ? entry.trustStats.map(mapActivity) : HOMEPAGE.trustStats,
+      promotionBanner: { ...HOMEPAGE.promotionBanner, ...entry.promotionBanner },
+      featuredDiveSites: { ...HOMEPAGE.featuredDiveSites, ...entry.featuredDiveSites },
+      quickFeatures: entry.quickFeatures?.length ? entry.quickFeatures.map(mapActivity) : HOMEPAGE.quickFeatures,
+      packagesSection: { ...HOMEPAGE.packagesSection, ...entry.packagesSection },
+      coursesSection: { ...HOMEPAGE.coursesSection, ...entry.coursesSection },
+      promotionsSection: { ...HOMEPAGE.promotionsSection, ...entry.promotionsSection },
+      servicesSection: { ...HOMEPAGE.servicesSection, ...entry.servicesSection },
+      testimonialsSection: { ...HOMEPAGE.testimonialsSection, ...entry.testimonialsSection },
+      gallerySection: { ...HOMEPAGE.gallerySection, ...entry.gallerySection },
+      languagesSection: { ...HOMEPAGE.languagesSection, ...entry.languagesSection },
+      contactSection: { ...HOMEPAGE.contactSection, ...entry.contactSection },
     };
   } catch (err) {
     console.warn('[Strapi] homepage single type not found yet, using local content fallback', err);
