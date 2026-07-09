@@ -5,11 +5,11 @@ import { fetchAPI } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
 import { normalizeStringArray, resolveStrapiMediaUrl } from '@/lib/strapiMappers';
 
-// NOTE: `website-settings` doesn't exist in Strapi yet (404) — this powers
-// Layout.tsx (nav, footer, contact info) on every page, so the fallback
-// here matters more than most: if this single type is ever half-broken in
-// Strapi (reachable but missing a field), prefer letting it throw and fall
-// back wholesale rather than rendering a Layout with holes in it.
+// This powers Layout.tsx (nav, footer, contact info) on every page, so the
+// fallback here matters more than most: if this single type is ever
+// half-broken in Strapi (reachable but missing a field), prefer letting it
+// throw and fall back wholesale rather than rendering a Layout with holes
+// in it.
 interface RawWebsiteSettings {
   siteName: string;
   tagline: string;
@@ -35,7 +35,7 @@ export async function getWebsiteSettings(): Promise<WebsiteSettings> {
     return {
       siteName: entry.siteName,
       tagline: entry.tagline,
-      logo: resolveStrapiMediaUrl(entry.logo),
+      logo: resolveStrapiMediaUrl(entry.logo) || WEBSITE_SETTINGS.logo,
       contact: entry.contact,
       socialLinks: entry.socialLinks ?? [],
       navLinks: entry.navLinks ?? [],
