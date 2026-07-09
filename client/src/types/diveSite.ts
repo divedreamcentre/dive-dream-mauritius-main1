@@ -5,7 +5,7 @@ export interface DiveSite {
   description: string;
   location: string;
   maxDepth: string;
-  certificationLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Technical';
+  certificationLevel?: 'Beginner' | 'Intermediate' | 'Advanced' | 'Technical';
   type: ('Wreck' | 'Reef' | 'Deep' | 'Drift' | 'Wall' | 'Night')[];
   marineLife: string[];
   highlights?: string[];

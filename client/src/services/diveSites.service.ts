@@ -1,24 +1,27 @@
 import type { DiveSite } from '@/types';
 import type { StrapiCollectionResponse, StrapiEntryBase, StrapiMedia } from '@/types/strapi';
 import { DIVE_SITES } from '@/content';
+import { shared } from '@/content/media';
 import { fetchAPI } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
-import { normalizeStringArray, resolveStrapiMediaUrl, unwrapCollection } from '@/lib/strapiMappers';
+import { extractPlainText, normalizeStringArray, resolveStrapiMediaUrl, unwrapCollection } from '@/lib/strapiMappers';
 
 interface RawDiveSite extends StrapiEntryBase {
   name: string;
   tagline: string | null;
-  description: string;
-  location: string;
-  maxDepth: string;
-  certificationLevel: DiveSite['certificationLevel'];
+  // Strapi has this configured as Rich Text (Blocks), which returns a JSON
+  // array of block nodes, not a plain string — see extractPlainText().
+  description: unknown;
+  location: string | null;
+  maxDepth: string | null;
+  certificationLevel: DiveSite['certificationLevel'] | null;
   type: unknown;
   marineLife: unknown;
   highlights: unknown;
-  visibility: string;
-  waterTemp: string;
-  bestSeason: string;
-  weatherConditions: string;
+  visibility: string | null;
+  waterTemp: string | null;
+  bestSeason: string | null;
+  weatherConditions: string | null;
   image: StrapiMedia | null;
 }
 
@@ -27,18 +30,18 @@ function mapDiveSiteFromStrapi(raw: RawDiveSite): DiveSite {
     id: raw.documentId,
     name: raw.name,
     tagline: raw.tagline ?? undefined,
-    description: raw.description,
-    location: raw.location,
-    maxDepth: raw.maxDepth,
-    certificationLevel: raw.certificationLevel,
+    description: extractPlainText(raw.description),
+    location: raw.location ?? '',
+    maxDepth: raw.maxDepth ?? '',
+    certificationLevel: raw.certificationLevel ?? undefined,
     type: normalizeStringArray(raw.type) as DiveSite['type'],
     marineLife: normalizeStringArray(raw.marineLife),
     highlights: normalizeStringArray(raw.highlights),
-    visibility: raw.visibility,
-    waterTemp: raw.waterTemp,
-    bestSeason: raw.bestSeason,
-    weatherConditions: raw.weatherConditions,
-    image: resolveStrapiMediaUrl(raw.image),
+    visibility: raw.visibility ?? '',
+    waterTemp: raw.waterTemp ?? '',
+    bestSeason: raw.bestSeason ?? '',
+    weatherConditions: raw.weatherConditions ?? '',
+    image: resolveStrapiMediaUrl(raw.image) || shared.heroUnderwater,
   };
 }
 

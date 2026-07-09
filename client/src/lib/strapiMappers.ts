@@ -44,6 +44,32 @@ export function mapSectionHeading(raw?: RawSectionHeading | null): { eyebrow: st
   };
 }
 
+interface StrapiBlockNode {
+  text?: string;
+  children?: StrapiBlockNode[];
+}
+
+// Some Strapi text fields are configured as Rich Text (Blocks) rather than
+// plain Text, which returns a JSON array of block nodes (e.g.
+// `[{ type: 'paragraph', children: [{ type: 'text', text: '...' }] }]`)
+// instead of a string — even though the frontend type expects a string.
+// This flattens that structure into plain text; a genuine plain string or
+// null/undefined passes through unchanged (defensive against either field
+// configuration, since which one a given field uses can only be confirmed
+// once real content exists to inspect).
+export function extractPlainText(input: unknown): string {
+  if (typeof input === 'string') return input;
+  if (!Array.isArray(input)) return '';
+
+  const collectText = (node: StrapiBlockNode): string => {
+    if (typeof node.text === 'string') return node.text;
+    if (Array.isArray(node.children)) return node.children.map(collectText).join('');
+    return '';
+  };
+
+  return (input as StrapiBlockNode[]).map(collectText).join('\n\n').trim();
+}
+
 // Resolves a Strapi media object's relative `url` (e.g. "/uploads/foo.jpeg")
 // into an absolute URL against the configured Strapi instance. Falls back
 // to an empty string for a missing/null media relation so callers can use

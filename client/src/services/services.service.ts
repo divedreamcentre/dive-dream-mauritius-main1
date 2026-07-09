@@ -1,13 +1,16 @@
 import type { Service } from '@/types';
 import type { StrapiCollectionResponse, StrapiEntryBase, StrapiMedia } from '@/types/strapi';
 import { SERVICES } from '@/content';
+import { shared } from '@/content/media';
 import { fetchAPI } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
-import { resolveStrapiMediaUrl, unwrapCollection } from '@/lib/strapiMappers';
+import { extractPlainText, resolveStrapiMediaUrl, unwrapCollection } from '@/lib/strapiMappers';
 
 interface RawService extends StrapiEntryBase {
   title: string;
-  description: string;
+  // May come back as a plain string or, if Strapi has this field configured
+  // as Rich Text (Blocks), a JSON array of block nodes — see extractPlainText().
+  description: unknown;
   price?: { amount?: number; unitLabel?: string } | string;
   image: StrapiMedia | null;
 }
@@ -22,9 +25,9 @@ function mapServiceFromStrapi(raw: RawService): Service {
   return {
     id: raw.documentId,
     title: raw.title,
-    description: raw.description,
+    description: extractPlainText(raw.description),
     price,
-    image: resolveStrapiMediaUrl(raw.image),
+    image: resolveStrapiMediaUrl(raw.image) || shared.heroUnderwater,
   };
 }
 

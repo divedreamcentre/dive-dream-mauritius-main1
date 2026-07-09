@@ -162,11 +162,13 @@ export default function DiveSites() {
                     alt={activeSite.name}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-6 left-6 flex gap-2">
-                    <span className="bg-primary text-primary-foreground px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
-                      {activeSite.certificationLevel} Required
-                    </span>
-                  </div>
+                  {activeSite.certificationLevel && (
+                    <div className="absolute top-6 left-6 flex gap-2">
+                      <span className="bg-primary text-primary-foreground px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
+                        {activeSite.certificationLevel} Required
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-8">

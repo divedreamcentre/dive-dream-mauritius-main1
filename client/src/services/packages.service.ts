@@ -12,7 +12,7 @@ interface RawDivePackage extends StrapiEntryBase {
   equipmentIncluded: boolean;
   nitroxOption: boolean;
   privateGuideOption: boolean;
-  duration: string;
+  duration: string | null;
   isBestValue?: boolean;
 }
 
@@ -26,7 +26,7 @@ function mapDivePackageFromStrapi(raw: RawDivePackage): DivePackage {
     equipmentIncluded: raw.equipmentIncluded,
     nitroxOption: raw.nitroxOption,
     privateGuideOption: raw.privateGuideOption,
-    duration: raw.duration,
+    duration: raw.duration ?? '',
     isBestValue: raw.isBestValue ?? undefined,
   };
 }
