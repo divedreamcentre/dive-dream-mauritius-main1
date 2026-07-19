@@ -12,10 +12,10 @@ export const HOMEPAGE: Homepage = {
     trustBadge: { years: '20+', label: 'Trusted by Divers Worldwide', ratingCount: 5 },
   },
   heroSlides: [
-    { image: home.heroSlides[0], title: 'Explore Crystal Waters', subtitle: 'Dive into 40+ pristine sites across Mauritius' },
-    { image: home.heroSlides[1], title: 'Historic Wreck Diving', subtitle: 'Discover fascinating underwater relics and marine ecosystems' },
-    { image: home.heroSlides[2], title: 'Vibrant Coral Gardens', subtitle: 'Swim through some of the Indian Ocean\'s richest reefs' },
-    { image: home.heroSlides[3], title: 'Professional Training', subtitle: 'SDI & TDI certified courses from beginner to instructor' },
+    { image: home.heroSlides[0], title: 'Explore Crystal Waters', subtitle: 'Dive into 40+ pristine sites across Mauritius', href: '/dive-sites' },
+    { image: home.heroSlides[1], title: 'Historic Wreck Diving', subtitle: 'Discover fascinating underwater relics and marine ecosystems', href: '/dive-sites' },
+    { image: home.heroSlides[2], title: 'Vibrant Coral Gardens', subtitle: 'Swim through some of the Indian Ocean\'s richest reefs', href: '/dive-sites' },
+    { image: home.heroSlides[3], title: 'Professional Training', subtitle: 'SDI & TDI certified courses from beginner to instructor', href: '/services' },
     { image: home.heroSlides[4], title: 'Luxury Dive Vessel', subtitle: 'Set sail on our custom-built catamaran for every expedition' },
   ],
   trustStats: [

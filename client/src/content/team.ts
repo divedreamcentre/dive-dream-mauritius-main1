@@ -11,7 +11,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     experience: '22 Years (13,000+ Dives)',
     languages: ['English', 'French', 'German'],
     specializations: ['Technical Diving', 'Wreck Diving', 'Deep Diving', 'Nitrox Blending', 'Underwater Photography', 'Rescue Training', 'Beginner Training', 'Youth Scuba Programs'],
-    biography: 'Neysen is the founder and director of Dive Dream Diving Centre Ltd. A Master Scuba Dive Trainer with 22 years of diving experience and over 13,000 dives logged, Neysen trained in Germany according to European standards. He has trained over 3,500 diving courses and is recognized by SDI, TDI, and CMAS for his professionalism and expertise. Known for his patient teaching style and passion for introducing beginners to the underwater world, Neysen previously worked as Dive Centre Manager and Instructor at Heritage Resort and Le Telfair Resort.',
+    biography: 'Neysen is the founder and director of Dive Dream Diving Centre. A Master Scuba Dive Trainer with 22 years of diving experience and over 13,000 dives logged, Neysen trained in Germany according to European standards. He has trained over 3,500 diving courses and is recognized by SDI, TDI, and CMAS for his professionalism and expertise. Known for his patient teaching style and passion for introducing beginners to the underwater world, Neysen previously worked as Dive Centre Manager and Instructor at Heritage Resort and Le Telfair Resort.',
     image: teamImages.neysenPillay,
   },
   {

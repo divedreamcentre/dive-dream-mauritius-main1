@@ -96,7 +96,7 @@ export default function Layout({ children }: LayoutProps) {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-10 h-10 rounded-full overflow-hidden border border-primary/40 group-hover:border-primary/60 transition-all duration-300">
-              <img src={settings?.logo} alt={`${settings?.siteName ?? 'Dive Dream Divers Ltd'} Logo`} className="w-full h-full object-cover" />
+              <img src={settings?.logo} alt={`${settings?.siteName ?? 'Dive Dream Divers'} Logo`} className="w-full h-full object-cover" />
             </div>
             <div>
               <span className="font-serif text-xl md:text-2xl font-bold tracking-wide text-white block leading-none uppercase">{settings?.siteName}</span>
@@ -236,7 +236,7 @@ export default function Layout({ children }: LayoutProps) {
             <div className="flex flex-col space-y-6">
               <Link href="/" className="flex items-center gap-2.5 group">
                 <div className="w-10 h-10 rounded-full overflow-hidden border border-primary/30">
-                  <img src={settings?.logo} alt={`${settings?.siteName ?? 'Dive Dream Divers Ltd'} Logo`} className="w-full h-full object-cover" />
+                  <img src={settings?.logo} alt={`${settings?.siteName ?? 'Dive Dream Divers'} Logo`} className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <span className="font-serif text-xl font-bold tracking-wide text-foreground block leading-none uppercase">{settings?.siteName}</span>

@@ -299,33 +299,43 @@ export default function Home() {
                     className="min-w-0 shrink-0 grow-0 pl-4"
                     style={{ flex: '0 0 70%' }}
                   >
-                    <div
-                      className="rounded-xl overflow-hidden border border-border/40 shadow-2xl shadow-black/30 transition-shadow duration-500"
-                      style={{
+                    {(() => {
+                      const cardClassName = `block rounded-xl overflow-hidden border border-border/40 shadow-2xl shadow-black/30 transition-shadow duration-500 ${slide.href ? 'cursor-pointer' : ''}`;
+                      const cardStyle = {
                         transform: `scale(${scale})`,
                         opacity,
                         transition: 'transform 0.35s ease-out, opacity 0.35s ease-out',
                         boxShadow: tweenVal < 0.15
                           ? '0 25px 60px -12px rgba(0,0,0,0.5), 0 0 40px -8px oklch(0.65 0.18 200 / 0.15)'
                           : undefined,
-                      }}
-                    >
-                      <div className="aspect-[16/9] relative">
-                        <img
-                          src={slide.image}
-                          alt={slide.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-                        <div
-                          className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 transition-opacity duration-300"
-                          style={{ opacity: tweenVal < 0.3 ? 1 : 0 }}
-                        >
-                          <h3 className="text-xl sm:text-3xl font-serif font-bold text-white mb-2">{slide.title}</h3>
-                          <p className="text-sm sm:text-base text-white/75 max-w-lg">{slide.subtitle}</p>
+                      };
+                      const cardContent = (
+                        <div className="aspect-[16/9] relative">
+                          <img
+                            src={slide.image}
+                            alt={slide.title}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                          <div
+                            className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 transition-opacity duration-300"
+                            style={{ opacity: tweenVal < 0.3 ? 1 : 0 }}
+                          >
+                            <h3 className="text-xl sm:text-3xl font-serif font-bold text-white mb-2">{slide.title}</h3>
+                            <p className="text-sm sm:text-base text-white/75 max-w-lg">{slide.subtitle}</p>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      );
+                      return slide.href ? (
+                        <Link href={slide.href} className={cardClassName} style={cardStyle}>
+                          {cardContent}
+                        </Link>
+                      ) : (
+                        <div className={cardClassName} style={cardStyle}>
+                          {cardContent}
+                        </div>
+                      );
+                    })()}
                   </div>
                 );
               })}

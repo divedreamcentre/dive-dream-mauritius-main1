@@ -24,7 +24,8 @@ interface RawActivity {
 
 interface RawHomepage {
   hero?: Partial<Homepage['hero']>;
-  heroSlides?: { image: StrapiMedia | null; title: string; subtitle: string }[];
+  heroBackgrounds?: StrapiMedia[] | null;
+  heroSlides?: { image: StrapiMedia | null; title: string; subtitle: string; href?: string | null }[];
   trustStats?: RawActivity[];
   promotionBanner?: Partial<Homepage['promotionBanner']>;
   featuredDiveSites?: Partial<Homepage['featuredDiveSites']>;
@@ -55,10 +56,11 @@ export async function getHomepage(): Promise<Homepage> {
     return {
       hero: { ...HOMEPAGE.hero, ...entry.hero },
       heroSlides: entry.heroSlides?.length
-        ? entry.heroSlides.map((slide) => ({
+        ? entry.heroSlides.map((slide, index) => ({
             image: resolveStrapiMediaUrl(slide.image) || HOMEPAGE.heroSlides[0]?.image,
             title: slide.title,
             subtitle: slide.subtitle,
+            href: slide.href ?? HOMEPAGE.heroSlides[index]?.href,
           }))
         : HOMEPAGE.heroSlides,
       trustStats: entry.trustStats?.length ? entry.trustStats.map(mapActivity) : HOMEPAGE.trustStats,
@@ -81,8 +83,17 @@ export async function getHomepage(): Promise<Homepage> {
 }
 
 export async function getHomeHeroBackgrounds(): Promise<string[]> {
-  // Home.tsx's rotating background slideshow images aren't part of the
-  // `homepage` single type's authored content — they're the same as the
-  // heroSlides carousel photos below. Kept as local assets for now.
-  return HOME_HERO_BACKGROUNDS;
+  // Home.tsx's rotating full-bleed background slideshow reads from the
+  // `homepage` single type's `heroBackgrounds` media (multiple) field in
+  // Strapi. Falls back to the local bundled images if that field is empty
+  // or the single type isn't reachable yet.
+  try {
+    const raw = await fetchAPI<StrapiSingleResponse<RawHomepage>>(ENDPOINTS.homepage);
+    const media = raw.data.heroBackgrounds ?? [];
+    const urls = media.map((item) => resolveStrapiMediaUrl(item)).filter(Boolean);
+    return urls.length ? urls : HOME_HERO_BACKGROUNDS;
+  } catch (err) {
+    console.warn('[Strapi] homepage heroBackgrounds unavailable, using local content fallback', err);
+    return HOME_HERO_BACKGROUNDS;
+  }
 }

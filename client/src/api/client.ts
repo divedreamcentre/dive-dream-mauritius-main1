@@ -1,4 +1,5 @@
 import { strapiConfig } from '@/lib/strapi';
+import { sanitizeStrapiRichText } from '@/lib/strapiMappers';
 
 // Strapi HTTP client. Talks to whatever VITE_STRAPI_URL points at — local
 // dev, staging, or production — so switching environments later is an env
@@ -56,5 +57,6 @@ export async function fetchAPI<T>(path: string, params?: FetchAPIParams): Promis
     );
   }
 
-  return response.json() as Promise<T>;
+  const json = await response.json();
+  return sanitizeStrapiRichText(json) as T;
 }

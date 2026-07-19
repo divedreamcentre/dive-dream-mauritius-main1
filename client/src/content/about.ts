@@ -4,8 +4,8 @@ import { about as aboutImages } from './media';
 export const ABOUT_PAGE: AboutPage = {
   hero: {
     eyebrow: 'Our Story',
-    title: 'About Dive Dream Divers Ltd',
-    description: 'Established in 2004 in Mauritius, Dive Dream Divers Ltd offers professional SDI and TDI training with over 40 pristine dive sites. We combine elite instruction with safety-first operations and a passion for marine conservation.',
+    title: 'About Dive Dream Divers',
+    description: 'Established in 2004 in Mauritius, Dive Dream Divers offers professional SDI and TDI training with over 40 pristine dive sites. We combine elite instruction with safety-first operations and a passion for marine conservation.',
   },
   mission: {
     eyebrow: 'Our Mission',

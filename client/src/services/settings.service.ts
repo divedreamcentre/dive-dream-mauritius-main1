@@ -36,7 +36,7 @@ export async function getWebsiteSettings(): Promise<WebsiteSettings> {
       siteName: entry.siteName,
       tagline: entry.tagline,
       logo: resolveStrapiMediaUrl(entry.logo) || WEBSITE_SETTINGS.logo,
-      contact: entry.contact,
+      contact: { ...WEBSITE_SETTINGS.contact, ...entry.contact },
       socialLinks: entry.socialLinks ?? [],
       navLinks: entry.navLinks ?? [],
       secondaryLinks: entry.secondaryLinks ?? [],

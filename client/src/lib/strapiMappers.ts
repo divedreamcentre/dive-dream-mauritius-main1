@@ -70,6 +70,48 @@ export function extractPlainText(input: unknown): string {
   return (input as StrapiBlockNode[]).map(collectText).join('\n\n').trim();
 }
 
+function isBlocksArray(value: unknown): value is StrapiBlockNode[] {
+  return (
+    Array.isArray(value) &&
+    value.length > 0 &&
+    value.every(
+      (item) =>
+        item !== null &&
+        typeof item === 'object' &&
+        typeof (item as { type?: unknown }).type === 'string' &&
+        Array.isArray((item as { children?: unknown }).children),
+    )
+  );
+}
+
+// Any Strapi text field can be flipped between plain Text and Rich Text
+// (Blocks) independently in the CMS, and the two configurations round-trip
+// as different JSON shapes (string vs. block-node array) — see
+// extractPlainText() above. Rather than threading extractPlainText() through
+// every mapper for every field that *might* be Rich Text (and re-breaking
+// whenever a field's type changes later), this walks the entire response
+// once at the HTTP boundary and flattens any block-node array found
+// anywhere in the payload into plain text. This is what was causing
+// "Minified React error #31" (object with keys {type, children}) in
+// production: a Rich Text field's raw block-node array was passed straight
+// through to JSX as if it were a string.
+export function sanitizeStrapiRichText<T>(data: T): T {
+  if (isBlocksArray(data)) {
+    return extractPlainText(data) as unknown as T;
+  }
+  if (Array.isArray(data)) {
+    return data.map((item) => sanitizeStrapiRichText(item)) as unknown as T;
+  }
+  if (data !== null && typeof data === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
+      out[key] = sanitizeStrapiRichText(value);
+    }
+    return out as T;
+  }
+  return data;
+}
+
 // Resolves a Strapi media object's relative `url` (e.g. "/uploads/foo.jpeg")
 // into an absolute URL against the configured Strapi instance. Falls back
 // to an empty string for a missing/null media relation so callers can use

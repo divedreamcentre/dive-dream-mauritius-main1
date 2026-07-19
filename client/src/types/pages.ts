@@ -35,7 +35,7 @@ export interface Homepage {
     secondaryCta: CTAButton;
     trustBadge: { years: string; label: string; ratingCount: number };
   };
-  heroSlides: { image: string; title: string; subtitle: string }[];
+  heroSlides: { image: string; title: string; subtitle: string; href?: string }[];
   trustStats: Activity[];
   promotionBanner: {
     eyebrow: string;

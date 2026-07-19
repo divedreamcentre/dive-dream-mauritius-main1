@@ -9,7 +9,7 @@ import { branding } from './media';
 // former since it matched the majority of references (Home.tsx map +
 // DiveCenter.tsx).
 export const WEBSITE_SETTINGS: WebsiteSettings = {
-  siteName: 'Dive Dream Divers Ltd',
+  siteName: 'Dive Dream Divers',
   tagline: 'UNDERWATER FEELS LIKE HOME',
   logo: branding.logo,
   contact: {
@@ -44,7 +44,7 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
   ],
   utilityBadges: ['SDI / TDI 5-Star Dive Center', 'Nitrox Membrane Station'],
   footer: {
-    description: 'Dive Dream Divers Ltd. offers professional SDI/TDI training and guided diving expeditions in Mauritius since 2004. Experience over 40 pristine dive sites with our certified instructors and elite crew.',
+    description: 'Dive Dream Divers offers professional SDI/TDI training and guided diving expeditions in Mauritius since 2004. Experience over 40 pristine dive sites with our certified instructors and elite crew.',
     badges: ['SDI 5-Star', 'TDI Facility'],
     columns: [
       {
@@ -76,6 +76,6 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
       { href: '#', label: 'Terms of Service' },
       { href: '#', label: 'Safety Liability' },
     ],
-    copyrightText: 'Dive Dream Divers Ltd. All rights reserved. Professional SDI & TDI 5-Star Facility.',
+    copyrightText: 'Dive Dream Divers. All rights reserved. Professional SDI & TDI 5-Star Facility.',
   },
 };
