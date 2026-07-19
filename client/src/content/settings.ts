@@ -14,7 +14,7 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
   logo: branding.logo,
   contact: {
     phone: '+230 58310098',
-    email: 'info@divedreamdivers.com',
+    email: 'divedreamcentre@gmail.com',
     address: '100 Marine Drive, Siren Bay, MB 1204',
     whatsapp: 'https://wa.me/23058310098',
     operatingHours: 'Daily: 07:00 AM - 06:00 PM GMT+8',
