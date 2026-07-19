@@ -10,6 +10,7 @@ import { useServices } from '@/hooks/useServices';
 import { useWebsiteSettings } from '@/hooks/useWebsiteSettings';
 import { combineAsyncStates } from '@/hooks/useAsyncData';
 import { PageLoader, PageError } from '@/components/common';
+import { formatPrice } from '@/utils';
 
 type ServiceCategory = '' | 'packages' | 'courses' | 'services';
 
@@ -331,7 +332,7 @@ export default function Reservations() {
                             >
                               <option value="">-- Choose a Package --</option>
                               {(packages ?? []).map(p => (
-                                <option key={p.id} value={p.id}>{p.name} — ${p.price}</option>
+                                <option key={p.id} value={p.id}>{p.name} — {formatPrice(p.price)}</option>
                               ))}
                             </select>
                           )}
@@ -343,7 +344,7 @@ export default function Reservations() {
                             >
                               <option value="">-- Choose a Course --</option>
                               {(courses ?? []).map(c => (
-                                <option key={c.id} value={c.id}>{c.name} — ${c.price}</option>
+                                <option key={c.id} value={c.id}>{c.name}{c.price ? ` — ${formatPrice(c.price)}` : ''}</option>
                               ))}
                             </select>
                           )}

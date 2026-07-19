@@ -5,7 +5,7 @@ export const DIVE_PACKAGES: DivePackage[] = [
   {
     id: 'single-dive',
     name: 'Single Dive Explorer',
-    price: 65,
+    price: { amount: 65, currency: 'USD' },
     divesCount: 1,
     equipmentIncluded: false,
     nitroxOption: true,
@@ -15,7 +15,7 @@ export const DIVE_PACKAGES: DivePackage[] = [
   {
     id: 'two-dives',
     name: 'Double Tank Adventure',
-    price: 120,
+    price: { amount: 120, currency: 'USD' },
     divesCount: 2,
     equipmentIncluded: false,
     nitroxOption: true,
@@ -26,7 +26,7 @@ export const DIVE_PACKAGES: DivePackage[] = [
   {
     id: 'five-dives',
     name: 'Five Dive Package',
-    price: 275,
+    price: { amount: 275, currency: 'USD' },
     divesCount: 5,
     equipmentIncluded: true,
     nitroxOption: true,
@@ -37,7 +37,7 @@ export const DIVE_PACKAGES: DivePackage[] = [
   {
     id: 'ten-dives',
     name: 'Ten Dive Package',
-    price: 500,
+    price: { amount: 500, currency: 'USD' },
     divesCount: 10,
     equipmentIncluded: true,
     nitroxOption: true,

@@ -1,4 +1,4 @@
-import type { Course } from '@/types';
+import type { Course, Price } from '@/types';
 import type { StrapiCollectionResponse, StrapiEntryBase, StrapiMedia } from '@/types/strapi';
 import { COURSES, COURSE_DETAILS } from '@/content';
 import { fetchAPI } from '@/api/client';
@@ -41,7 +41,7 @@ export interface RawCourse extends StrapiEntryBase {
   duration?: string | null;
   certificationAwarded?: string | null;
   includedMaterials?: unknown;
-  price?: { amount?: number } | null;
+  price?: { amount?: number; currency?: Price['currency']; unitLabel?: string | null } | null;
   schedule?: string | null;
   learningPoints?: unknown;
   learningPointsSection?: RawSectionHeading | null;
@@ -90,7 +90,9 @@ export function mapCourseFromStrapi(raw: RawCourse): Course {
     duration: raw.duration ?? undefined,
     certificationAwarded: raw.certificationAwarded ?? undefined,
     includedMaterials: normalizeStringArray(raw.includedMaterials),
-    price: raw.price?.amount,
+    price: raw.price
+      ? { amount: raw.price.amount ?? 0, currency: raw.price.currency ?? 'USD', unitLabel: raw.price.unitLabel }
+      : undefined,
     schedule: raw.schedule ?? undefined,
     learningPoints: normalizeStringArray(raw.learningPoints),
     learningPointsSection: mapSectionHeading(raw.learningPointsSection),

@@ -1,6 +1,7 @@
 import { Link } from 'wouter';
 import { Star, CheckCircle2 } from 'lucide-react';
 import type { DivePackage } from '@/types';
+import { formatPrice } from '@/utils';
 
 interface PackageCardProps {
   pkg: DivePackage;
@@ -25,7 +26,7 @@ export function PackageCard({ pkg, variant = 'full' }: PackageCardProps) {
           <span className="text-xs text-muted-foreground uppercase tracking-wider block mb-1">{pkg.duration}</span>
           <h3 className="text-lg font-serif font-bold text-foreground mb-4">{pkg.name}</h3>
           <div className="flex items-baseline gap-1 mb-6">
-            <span className="text-3xl font-serif font-bold text-foreground">${pkg.price}</span>
+            <span className="text-3xl font-serif font-bold text-foreground">{formatPrice(pkg.price)}</span>
             <span className="text-xs text-muted-foreground">/ package</span>
           </div>
 
@@ -80,7 +81,7 @@ export function PackageCard({ pkg, variant = 'full' }: PackageCardProps) {
         <h3 className="text-xl font-serif font-bold text-foreground mb-4">{pkg.name}</h3>
 
         <div className="flex items-baseline gap-1 mb-8">
-          <span className="text-4xl font-serif font-bold text-foreground">${pkg.price}</span>
+          <span className="text-4xl font-serif font-bold text-foreground">{formatPrice(pkg.price)}</span>
           <span className="text-xs text-muted-foreground">/ package</span>
         </div>
 

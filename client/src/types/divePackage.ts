@@ -1,7 +1,9 @@
+import type { Price } from './common';
+
 export interface DivePackage {
   id: string;
   name: string;
-  price: number;
+  price: Price;
   divesCount: number;
   equipmentIncluded: boolean;
   nitroxOption: boolean;

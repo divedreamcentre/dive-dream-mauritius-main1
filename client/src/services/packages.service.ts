@@ -1,4 +1,4 @@
-import type { DivePackage } from '@/types';
+import type { DivePackage, Price } from '@/types';
 import type { StrapiCollectionResponse, StrapiEntryBase } from '@/types/strapi';
 import { DIVE_PACKAGES } from '@/content';
 import { fetchAPI } from '@/api/client';
@@ -7,7 +7,9 @@ import { unwrapCollection } from '@/lib/strapiMappers';
 
 interface RawDivePackage extends StrapiEntryBase {
   name: string;
-  price?: { amount?: number } | number;
+  // May come back as a plain number (older content, defaults to USD) or the
+  // structured { amount, currency, unitLabel } price component.
+  price?: { amount?: number; currency?: Price['currency']; unitLabel?: string | null } | number;
   divesCount: number;
   equipmentIncluded: boolean;
   nitroxOption: boolean;
@@ -17,7 +19,10 @@ interface RawDivePackage extends StrapiEntryBase {
 }
 
 function mapDivePackageFromStrapi(raw: RawDivePackage): DivePackage {
-  const price = typeof raw.price === 'number' ? raw.price : raw.price?.amount ?? 0;
+  const price: Price =
+    typeof raw.price === 'number'
+      ? { amount: raw.price, currency: 'USD' }
+      : { amount: raw.price?.amount ?? 0, currency: raw.price?.currency ?? 'USD', unitLabel: raw.price?.unitLabel };
   return {
     id: raw.documentId,
     name: raw.name,

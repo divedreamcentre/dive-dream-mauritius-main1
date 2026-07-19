@@ -43,3 +43,9 @@ export interface SectionHeading {
   title: string;
   description?: string;
 }
+
+export interface Price {
+  amount: number;
+  currency: 'USD' | 'EUR' | 'GBP' | 'MUR';
+  unitLabel?: string | null;
+}

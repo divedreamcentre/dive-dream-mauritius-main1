@@ -1,3 +1,5 @@
+import type { Price } from './common';
+
 // Unified Course entity — covers both the compact "listing card" shape
 // (Home/Courses pages) and the richer "detail page" shape (courses/*.tsx).
 // Only `id`, `name`, `overview` are guaranteed; everything else is optional
@@ -34,7 +36,7 @@ export interface Course {
   duration?: string;
   certificationAwarded?: string;
   includedMaterials?: string[];
-  price?: number;
+  price?: Price;
   schedule?: string;
 
   // Curriculum

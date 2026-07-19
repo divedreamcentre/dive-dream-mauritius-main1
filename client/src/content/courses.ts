@@ -17,7 +17,7 @@ export const COURSES: Course[] = [
     duration: '3 - 4 Days',
     certificationAwarded: 'SDI Open Water Diver (Lifetime, Globally Recognized)',
     includedMaterials: ['SDI eLearning Access', 'Digital Logbook', 'Premium Gear Rental', 'Certification Fees'],
-    price: 450,
+    price: { amount: 450, currency: 'USD' },
     schedule: 'Day 1: Theory review & confined water skills. Day 2-3: Ocean training dives. Day 4: Final certification dives.',
   },
   {
@@ -30,7 +30,7 @@ export const COURSES: Course[] = [
     duration: '2 - 3 Days',
     certificationAwarded: 'SDI Advanced Open Water Diver',
     includedMaterials: ['eLearning materials', 'Specialty equipment', '4 Ocean training dives'],
-    price: 390,
+    price: { amount: 390, currency: 'USD' },
     schedule: 'Day 1: Navigation and buoyancy training. Day 2-3: Specialty dives including deep and drift diving.',
   },
   {
@@ -43,7 +43,7 @@ export const COURSES: Course[] = [
     duration: '3 Days',
     certificationAwarded: 'SDI Rescue Diver',
     includedMaterials: ['SDI Rescue eLearning', 'Oxygen Provider training', 'Scenario-based training'],
-    price: 480,
+    price: { amount: 480, currency: 'USD' },
     schedule: 'Day 1: Rescue theory and self-rescue techniques. Day 2: Confined water rescue drills. Day 3: Ocean rescue scenarios.',
   },
   {
@@ -56,7 +56,7 @@ export const COURSES: Course[] = [
     duration: '1 Day',
     certificationAwarded: 'TDI Nitrox Diver',
     includedMaterials: ['TDI Nitrox eLearning', 'Gas analysis workshop', '2 Nitrox cylinder fills'],
-    price: 180,
+    price: { amount: 180, currency: 'USD' },
     schedule: 'Morning: Physics & physiology lecture, gas analyzer practice. Afternoon: Optional 2 dives using Nitrox.',
   },
   {
@@ -69,7 +69,7 @@ export const COURSES: Course[] = [
     duration: '2 Days',
     certificationAwarded: 'TDI Wreck Diving Specialty',
     includedMaterials: ['TDI Wreck manual', 'Specialty equipment', '3 wreck training dives'],
-    price: 320,
+    price: { amount: 320, currency: 'USD' },
     schedule: 'Day 1: Wreck diving theory and confined water training. Day 2: Two guided wreck dives.',
   },
   {
@@ -82,7 +82,7 @@ export const COURSES: Course[] = [
     duration: '2 Days',
     certificationAwarded: 'TDI Deep Diver',
     includedMaterials: ['TDI Deep Diving manual', 'Decompression tables', '3 deep training dives'],
-    price: 350,
+    price: { amount: 350, currency: 'USD' },
     schedule: 'Day 1: Deep diving theory and planning. Day 2: Two deep training dives with decompression stops.',
   },
   {
@@ -95,7 +95,7 @@ export const COURSES: Course[] = [
     duration: '4 - 5 Days',
     certificationAwarded: 'SDI/TDI Extended Range Diver',
     includedMaterials: ['TDI Extended Range manual', 'Twinset/sidemount equipment', 'Decompression gas fills'],
-    price: 650,
+    price: { amount: 650, currency: 'USD' },
     schedule: 'Day 1-2: Technical diving theory, gas planning, and confined water skills. Day 3-5: Planned decompression training dives to 45-65 metres.',
   },
 ];
