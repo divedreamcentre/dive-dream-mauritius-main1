@@ -1,12 +1,12 @@
-import type { DiveSite } from '@/types';
+import type { DiveSafari } from '@/types';
 import type { StrapiCollectionResponse, StrapiEntryBase, StrapiMedia } from '@/types/strapi';
-import { DIVE_SITES } from '@/content';
+import { DIVE_SAFARIS } from '@/content';
 import { shared } from '@/content/media';
 import { fetchAPI } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
 import { extractPlainText, normalizeStringArray, resolveStrapiMediaUrl, unwrapCollection } from '@/lib/strapiMappers';
 
-interface RawDiveSite extends StrapiEntryBase {
+interface RawDiveSafari extends StrapiEntryBase {
   name: string;
   tagline: string | null;
   // Strapi has this configured as Rich Text (Blocks), which returns a JSON
@@ -14,7 +14,7 @@ interface RawDiveSite extends StrapiEntryBase {
   description: unknown;
   location: string | null;
   maxDepth: string | null;
-  certificationLevel: DiveSite['certificationLevel'] | null;
+  certificationLevel: DiveSafari['certificationLevel'] | null;
   type: unknown;
   marineLife: unknown;
   highlights: unknown;
@@ -25,7 +25,7 @@ interface RawDiveSite extends StrapiEntryBase {
   image: StrapiMedia | null;
 }
 
-function mapDiveSiteFromStrapi(raw: RawDiveSite): DiveSite {
+function mapDiveSafariFromStrapi(raw: RawDiveSafari): DiveSafari {
   return {
     id: raw.documentId,
     name: raw.name,
@@ -34,7 +34,7 @@ function mapDiveSiteFromStrapi(raw: RawDiveSite): DiveSite {
     location: raw.location ?? '',
     maxDepth: raw.maxDepth ?? '',
     certificationLevel: raw.certificationLevel ?? undefined,
-    type: normalizeStringArray(raw.type) as DiveSite['type'],
+    type: normalizeStringArray(raw.type) as DiveSafari['type'],
     marineLife: normalizeStringArray(raw.marineLife),
     highlights: normalizeStringArray(raw.highlights),
     visibility: raw.visibility ?? '',
@@ -45,17 +45,21 @@ function mapDiveSiteFromStrapi(raw: RawDiveSite): DiveSite {
   };
 }
 
-export async function getDiveSites(): Promise<DiveSite[]> {
+export async function getDiveSafaris(): Promise<DiveSafari[]> {
   try {
-    const raw = await fetchAPI<StrapiCollectionResponse<RawDiveSite>>(ENDPOINTS.diveSites);
-    return unwrapCollection(raw).map(mapDiveSiteFromStrapi);
+    // NOTE: still points at Strapi's existing `/api/dive-sites` collection —
+    // deliberately not renamed here, since that would 404 against the live
+    // CMS unless the Strapi content-type is renamed too. See the CMS notes
+    // for the coordinated rename.
+    const raw = await fetchAPI<StrapiCollectionResponse<RawDiveSafari>>(ENDPOINTS.diveSafaris);
+    return unwrapCollection(raw).map(mapDiveSafariFromStrapi);
   } catch (err) {
     console.warn('[Strapi] dive-sites unavailable, using local content fallback', err);
-    return DIVE_SITES;
+    return DIVE_SAFARIS;
   }
 }
 
-export async function getDiveSiteById(id: string): Promise<DiveSite | undefined> {
-  const sites = await getDiveSites();
-  return sites.find((site) => site.id === id);
+export async function getDiveSafariById(id: string): Promise<DiveSafari | undefined> {
+  const safaris = await getDiveSafaris();
+  return safaris.find((safari) => safari.id === id);
 }

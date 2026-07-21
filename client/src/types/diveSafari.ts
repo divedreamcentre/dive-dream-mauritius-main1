@@ -1,4 +1,4 @@
-export interface DiveSite {
+export interface DiveSafari {
   id: string;
   name: string;
   tagline?: string;

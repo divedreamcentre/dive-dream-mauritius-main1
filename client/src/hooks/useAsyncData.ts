@@ -6,7 +6,7 @@ export interface AsyncDataState<T> {
   error: Error | null;
 }
 
-// Generic data-fetching hook. Every domain hook (useDiveSites, useCourses,
+// Generic data-fetching hook. Every domain hook (useDiveSafaris, useCourses,
 // useHomepage, ...) is a thin wrapper around this, calling a services/*
 // function as its fetcher. The loading/error shape is modeled now — even
 // though today's fetchers resolve local content instantly — so nothing

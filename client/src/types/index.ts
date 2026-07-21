@@ -1,5 +1,5 @@
 export * from './common';
-export * from './diveSite';
+export * from './diveSafari';
 export * from './course';
 export * from './divePackage';
 export * from './promotion';

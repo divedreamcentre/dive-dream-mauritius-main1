@@ -1,7 +1,6 @@
 import type { CTAButton, ContactInfo, NavLink, SectionHeading, SocialLink } from './common';
 import type { Course } from './course';
 import type { Activity } from './activity';
-import type { FAQItem } from './faq';
 
 // ─── Website-wide settings (nav, footer, contact) — Strapi single type ────
 
@@ -43,7 +42,7 @@ export interface Homepage {
     countdown: { days: string; hours: string; mins: string };
     ctaLabel: string;
   };
-  featuredDiveSites: {
+  featuredDiveSafaris: {
     heading: string;
     ctaLabel: string;
   };
@@ -94,36 +93,6 @@ export interface ContactPage {
 
 // ─── Simpler "hero + sections" pages — each a Strapi single type ──────────
 
-export interface EquipmentPage {
-  hero: SectionHeading;
-  safetySection: SectionHeading & { paragraphs: string[]; badges: string[]; image: string };
-  diverEquipmentSection: SectionHeading & { paragraph: string; items: string[]; image: string };
-  fleetSection: SectionHeading & { paragraph: string; items: string[]; image: string };
-}
-
-export interface DiveCenterPage {
-  hero: SectionHeading;
-  tourSection: SectionHeading;
-  facilityAreas: Activity[];
-  locationSection: SectionHeading & { address: string; parkingNote: string };
-  mapEmbedUrl: string;
-}
-
-export interface DivingPage {
-  hero: SectionHeading;
-  nitroxSection: SectionHeading & {
-    points: string[];
-    ctaLabel: string;
-    highlightCard: { title: string; description: string; notes: string[] };
-  };
-  rebreatherSection: SectionHeading & {
-    whatIsIt: { title: string; description: string; benefits: Activity[] };
-    idealFor: { title: string; items: Activity[] };
-    enquiry: { description: string; ctaLabel: string };
-  };
-  nitroxFaqs: FAQItem[];
-}
-
 export interface BoatPage {
   hero: SectionHeading;
   vesselImage: string;
@@ -148,13 +117,21 @@ export interface CoursesPage {
   ctaSection: { title: string; description: string; primaryCtaLabel: string; secondaryCtaLabel: string };
 }
 
-export interface DiveSitesPage {
+export interface DiveSafarisPage {
   hero: SectionHeading;
   mapSection: SectionHeading;
   mapImage: string;
   highlightsSection: SectionHeading;
   certLevels: string[];
   diveTypes: string[];
+}
+
+export interface RebreatherDivingPage {
+  hero: SectionHeading;
+  whatIsItSection: SectionHeading & { points: string[] };
+  whoIsItForSection: SectionHeading & { prerequisites: string[] };
+  offeringsSection: SectionHeading & { offerings: Activity[] };
+  ctaSection: { heading: string; description: string; ctaLabel: string };
 }
 
 export interface PackagesPage {

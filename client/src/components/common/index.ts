@@ -9,7 +9,7 @@ export * from './PackageCard';
 export * from './ServiceCard';
 export * from './PromotionCard';
 export * from './CourseCard';
-export * from './DiveSiteCard';
+export * from './DiveSafariCard';
 export * from './iconRegistry';
 export * from './PageLoader';
 export * from './PageError';

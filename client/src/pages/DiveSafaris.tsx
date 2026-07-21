@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
-import type { DiveSite } from '@/types';
+import type { DiveSafari } from '@/types';
 import { MapPin, Waves, Thermometer, Compass, Calendar, Sun, Eye, CheckCircle2 } from 'lucide-react';
 import { Link } from 'wouter';
-import { useDiveSites } from '@/hooks/useDiveSites';
-import { useDiveSitesPage } from '@/hooks/useDiveSitesPage';
+import { useDiveSafaris } from '@/hooks/useDiveSafaris';
+import { useDiveSafarisPage } from '@/hooks/useDiveSafarisPage';
 import { combineAsyncStates } from '@/hooks/useAsyncData';
 import { PageLoader, PageError } from '@/components/common';
 
-export default function DiveSites() {
-  const sitesResult = useDiveSites();
-  const pageResult = useDiveSitesPage();
+export default function DiveSafaris() {
+  const sitesResult = useDiveSafaris();
+  const pageResult = useDiveSafarisPage();
   const { data: sites } = sitesResult;
   const { data: page } = pageResult;
 
   const [selectedCert, setSelectedCert] = useState<string>('All');
   const [selectedType, setSelectedType] = useState<string>('All');
-  const [activeSite, setActiveSite] = useState<DiveSite | null>(null);
+  const [activeSite, setActiveSite] = useState<DiveSafari | null>(null);
 
   useEffect(() => {
     if (sites && sites.length > 0 && !activeSite) {
@@ -33,8 +33,8 @@ export default function DiveSites() {
       <Layout>
         <section className="py-24">
           <div className="container text-center max-w-2xl">
-            <h1 className="text-3xl font-serif font-bold text-foreground mb-4">No Dive Sites Available Yet</h1>
-            <p className="text-muted-foreground">Check back soon — our dive site catalogue is being updated.</p>
+            <h1 className="text-3xl font-serif font-bold text-foreground mb-4">No Dive Safaris Available Yet</h1>
+            <p className="text-muted-foreground">Check back soon — our dive safari catalogue is being updated.</p>
           </div>
         </section>
       </Layout>
@@ -60,7 +60,7 @@ export default function DiveSites() {
         <div className="absolute inset-0 z-0">
           <img
             src={activeSite.image}
-            alt="Dive Sites Header"
+            alt="Dive Safaris Header"
             className="w-full h-full object-cover opacity-20 scale-105 transition-all duration-1000"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/85 to-background z-10" />
@@ -74,7 +74,7 @@ export default function DiveSites() {
         </div>
       </section>
 
-      {/* Full Dive Sites Map */}
+      {/* Full Dive Safaris Map */}
       <section className="py-16 border-b border-border">
         <div className="container">
           <div className="text-center mb-10">
@@ -97,7 +97,7 @@ export default function DiveSites() {
         </div>
       </section>
 
-      {/* Dive Site Highlights */}
+      {/* Dive Safari Highlights */}
       <section className="py-16">
         <div className="container">
           <div className="text-center mb-12">
@@ -183,7 +183,7 @@ export default function DiveSites() {
                         <h2 className="text-3xl font-serif font-bold text-foreground mt-1">{activeSite.name}</h2>
                       )}
                     </div>
-                    <Link href={`/reservations?site=${activeSite.id}`} className="btn-premium-primary py-2.5 px-6 text-sm">
+                    <Link href={`/reservations?diveSafari=${activeSite.id}`} className="btn-premium-primary py-2.5 px-6 text-sm">
                       Book This Dive
                     </Link>
                   </div>
@@ -268,7 +268,7 @@ export default function DiveSites() {
 
             {/* Right Column: Site Selection List */}
             <div className="space-y-4 text-left">
-              <h3 className="text-lg font-serif font-bold text-foreground px-1">Available Sites ({filteredSites.length})</h3>
+              <h3 className="text-lg font-serif font-bold text-foreground px-1">Available Dive Safaris ({filteredSites.length})</h3>
 
               {filteredSites.length === 0 ? (
                 <div className="glass-panel p-8 text-center text-muted-foreground text-sm">

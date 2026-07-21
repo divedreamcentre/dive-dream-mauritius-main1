@@ -53,9 +53,11 @@ export const home = {
 const galleryGlob = import.meta.glob('../assets/gallery/*.{webp,jpg,jpeg,png}', { eager: true, query: '?url', import: 'default' });
 export const galleryUrls: string[] = Object.values(galleryGlob) as string[];
 
-// ─── Dive Sites ──────────────────────────────────────────────────────
+// ─── Dive Safaris (formerly "Dive Sites") ─────────────────────────────
+// Physical asset filename (dive-sites-map.webp) kept as-is — only the
+// export/key names changed, to avoid a broken image reference.
 
-export const diveSites = {
+export const diveSafaris = {
   map: "/images/dive-sites-map.webp",
   coinDeMire: shared.heroUnderwater,
   ilePlate: shared.diveSiteWreck,
@@ -74,23 +76,6 @@ export const about = {
 
 export const boat = {
   vessel: shared.diveBoat,
-};
-
-// ─── Equipment Page ──────────────────────────────────────────────────
-
-export const equipment = {
-  safetyStandards: shared.scubaTraining,
-  rentalGear: "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?auto=format&fit=crop&w=600&q=80",
-  fleet: shared.diveBoat,
-};
-
-// ─── Dive Center Page ────────────────────────────────────────────────
-
-export const diveCenter = {
-  reception: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80",
-  classroom: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
-  showersLockers: shared.coralReef,
-  nitroxStation: shared.heroUnderwater,
 };
 
 // ─── Services (used in content/services.ts) ───────────────────────────

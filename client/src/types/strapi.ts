@@ -1,6 +1,6 @@
 // Raw Strapi v5 response shapes. These describe what actually comes back
 // over the wire — used only inside services/*.service.ts to parse
-// responses before mapping into this app's domain types (Course, DiveSite,
+// responses before mapping into this app's domain types (Course, DiveSafari,
 // etc. in types/*.ts). Components and hooks never see these directly.
 //
 // Strapi v5 flattens entries (no `.attributes` wrapper, unlike v4) and

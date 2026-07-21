@@ -28,7 +28,7 @@ interface RawHomepage {
   heroSlides?: { image: StrapiMedia | null; title: string; subtitle: string; href?: string | null }[];
   trustStats?: RawActivity[];
   promotionBanner?: Partial<Homepage['promotionBanner']>;
-  featuredDiveSites?: Partial<Homepage['featuredDiveSites']>;
+  featuredDiveSafaris?: Partial<Homepage['featuredDiveSafaris']>;
   quickFeatures?: RawActivity[];
   packagesSection?: Partial<Homepage['packagesSection']>;
   coursesSection?: Partial<Homepage['coursesSection']>;
@@ -65,7 +65,7 @@ export async function getHomepage(): Promise<Homepage> {
         : HOMEPAGE.heroSlides,
       trustStats: entry.trustStats?.length ? entry.trustStats.map(mapActivity) : HOMEPAGE.trustStats,
       promotionBanner: { ...HOMEPAGE.promotionBanner, ...entry.promotionBanner },
-      featuredDiveSites: { ...HOMEPAGE.featuredDiveSites, ...entry.featuredDiveSites },
+      featuredDiveSafaris: { ...HOMEPAGE.featuredDiveSafaris, ...entry.featuredDiveSafaris },
       quickFeatures: entry.quickFeatures?.length ? entry.quickFeatures.map(mapActivity) : HOMEPAGE.quickFeatures,
       packagesSection: { ...HOMEPAGE.packagesSection, ...entry.packagesSection },
       coursesSection: { ...HOMEPAGE.coursesSection, ...entry.coursesSection },

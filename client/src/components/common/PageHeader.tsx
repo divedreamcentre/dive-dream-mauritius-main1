@@ -7,8 +7,8 @@ interface PageHeaderProps {
 }
 
 // The eyebrow + title + description block repeated at the top of every
-// inner page (About, Contact, Equipment, Courses, all 7 course detail
-// pages, ...). Purely presentational — content always comes from props.
+// inner page (About, Contact, Courses, all 7 course detail pages, ...).
+// Purely presentational — content always comes from props.
 export function PageHeader({ eyebrow, title, description, paddingClassName = 'py-24' }: PageHeaderProps) {
   return (
     <section className={`relative border-b border-border ${paddingClassName}`}>

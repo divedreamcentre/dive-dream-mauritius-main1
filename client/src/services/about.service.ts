@@ -9,8 +9,8 @@ import { mapSectionHeading, resolveStrapiMediaUrl, unwrapSingle, type RawSection
 // live — every naming variant returned 404), so this always falls back to
 // local content today. Wiring + mapper are in place so it activates
 // automatically the moment the single type is published — see the
-// EquipmentPage/DiveCenterPage services for the same pattern repeated
-// across every not-yet-built single type.
+// BoatPage service for the same pattern repeated across every
+// not-yet-built single type.
 interface RawActivity {
   id?: number;
   documentId?: string;

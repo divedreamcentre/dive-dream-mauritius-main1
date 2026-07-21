@@ -1,13 +1,13 @@
-import type { DiveSitesPage } from '@/types';
+import type { DiveSafarisPage } from '@/types';
 import type { StrapiMedia, StrapiSingleResponse } from '@/types/strapi';
-import { DIVE_SITES_PAGE } from '@/content';
+import { DIVE_SAFARIS_PAGE } from '@/content';
 import { fetchAPI } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
 import { mapSectionHeading, normalizeStringArray, resolveStrapiMediaUrl, type RawSectionHeading } from '@/lib/strapiMappers';
 
 // NOTE: `dive-sites-page` doesn't exist in Strapi yet (404) — falls back to
 // local content until published.
-interface RawDiveSitesPage {
+interface RawDiveSafarisPage {
   hero: RawSectionHeading;
   mapSection: RawSectionHeading;
   mapImage: StrapiMedia | null;
@@ -16,9 +16,9 @@ interface RawDiveSitesPage {
   diveTypes?: unknown;
 }
 
-export async function getDiveSitesPage(): Promise<DiveSitesPage> {
+export async function getDiveSafarisPage(): Promise<DiveSafarisPage> {
   try {
-    const raw = await fetchAPI<StrapiSingleResponse<RawDiveSitesPage>>(ENDPOINTS.diveSitesPage);
+    const raw = await fetchAPI<StrapiSingleResponse<RawDiveSafarisPage>>(ENDPOINTS.diveSafarisPage);
     const entry = raw.data;
     return {
       hero: mapSectionHeading(entry.hero),
@@ -30,6 +30,6 @@ export async function getDiveSitesPage(): Promise<DiveSitesPage> {
     };
   } catch (err) {
     console.warn('[Strapi] dive-sites-page single type not found yet, using local content fallback', err);
-    return DIVE_SITES_PAGE;
+    return DIVE_SAFARIS_PAGE;
   }
 }

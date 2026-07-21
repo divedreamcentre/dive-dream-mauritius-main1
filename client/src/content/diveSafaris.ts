@@ -1,8 +1,8 @@
-import type { DiveSite } from '@/types';
-import { diveSites as diveSiteImages } from './media';
+import type { DiveSafari } from '@/types';
+import { diveSafaris as diveSafariImages } from './media';
 
 // Dive Dream operates 40+ dive sites across Mauritius (4 featured here).
-export const DIVE_SITES: DiveSite[] = [
+export const DIVE_SAFARIS: DiveSafari[] = [
   {
     id: 'coin-de-mire',
     name: 'Coin de Mire',
@@ -24,7 +24,7 @@ export const DIVE_SITES: DiveSite[] = [
     waterTemp: '24°C - 28°C (75°F - 82°F)',
     bestSeason: 'October to April',
     weatherConditions: 'Moderate to strong currents, suitable for advanced divers.',
-    image: diveSiteImages.coinDeMire,
+    image: diveSafariImages.coinDeMire,
   },
   {
     id: 'ile-plate',
@@ -47,7 +47,7 @@ export const DIVE_SITES: DiveSite[] = [
     waterTemp: '25°C - 27°C (77°F - 81°F)',
     bestSeason: 'Year-round (Best: May to September)',
     weatherConditions: 'Generally calm with light to moderate currents.',
-    image: diveSiteImages.ilePlate,
+    image: diveSafariImages.ilePlate,
   },
   {
     id: 'round-island',
@@ -70,7 +70,7 @@ export const DIVE_SITES: DiveSite[] = [
     waterTemp: '26°C - 28°C (79°F - 82°F)',
     bestSeason: 'Year-round',
     weatherConditions: 'Strong currents, remote location. Recommended for advanced divers.',
-    image: diveSiteImages.roundIsland,
+    image: diveSafariImages.roundIsland,
   },
   {
     id: 'passe-st-jacques',
@@ -85,6 +85,6 @@ export const DIVE_SITES: DiveSite[] = [
     waterTemp: '23°C - 26°C (73°F - 79°F)',
     bestSeason: 'May to September',
     weatherConditions: 'Strong currents, requires advanced skills and experience.',
-    image: diveSiteImages.passeStJacques,
+    image: diveSafariImages.passeStJacques,
   },
 ];

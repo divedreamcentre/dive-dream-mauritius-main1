@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import { Tag, Clock, Users, Flame, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Tag, Clock, Users, Flame, CheckCircle2, ArrowRight, Heart } from 'lucide-react';
 import type { Promotion } from '@/types';
 
 interface PromotionCardProps {
@@ -14,6 +14,7 @@ interface PromotionCardProps {
 const PROMOTION_ICONS: Record<string, typeof Tag> = {
   'early-booking': Clock,
   'group-discount': Users,
+  'repeat-customer': Heart,
 };
 
 export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyCode }: PromotionCardProps) {
@@ -28,14 +29,17 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
             <span className="text-2xl font-serif font-bold text-gold">{promotion.discount}</span>
           </div>
           <h3 className="text-lg font-serif font-bold text-foreground mb-3">{promotion.title}</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed mb-6">{promotion.description}</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3">{promotion.description}</p>
+          <p className="text-xs text-muted-foreground/80 mb-6">
+            {promotion.conditions.length > 0 ? promotion.conditions.join(' · ') : 'Cannot be combined with other offers'}
+          </p>
         </div>
         <div className="border-t border-border pt-4 flex items-center justify-between">
           <span className="font-mono text-xs font-bold text-foreground tracking-wider bg-secondary px-3 py-1.5 rounded border border-border">
             {promotion.code}
           </span>
           <Link
-            href={`/reservations?promo=${promotion.code}`}
+            href={promotion.ctaHref ?? `/reservations?promo=${promotion.code}`}
             className="text-xs text-primary font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1"
           >
             Apply <ArrowRight className="w-3.5 h-3.5" />
@@ -94,14 +98,15 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
         )}
 
         <ul className="space-y-2.5 text-xs text-muted-foreground mb-8">
-          <li className="flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
-            <span>Valid on all standard SDI/TDI bookings</span>
-          </li>
-          <li className="flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
-            <span>Cannot be combined with other offers</span>
-          </li>
+          {(promotion.conditions.length > 0
+            ? promotion.conditions
+            : ['Cannot be combined with other offers']
+          ).map((condition) => (
+            <li key={condition} className="flex items-center gap-2">
+              <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
+              <span>{condition}</span>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -117,10 +122,10 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
         </div>
 
         <Link
-          href={`/reservations?promo=${promotion.code}`}
+          href={promotion.ctaHref ?? `/reservations?promo=${promotion.code}`}
           className="w-full text-center py-3 rounded-full text-xs font-bold uppercase tracking-widest bg-primary text-primary-foreground hover:bg-primary/90 transition-colors block"
         >
-          Apply Promo Now
+          {promotion.ctaLabel ?? 'Apply Promo Now'}
         </Link>
       </div>
     </div>

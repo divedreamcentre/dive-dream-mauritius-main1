@@ -7,7 +7,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
 import { useHomepage, useHomeHeroBackgrounds } from '@/hooks/useHomepage';
-import { useDiveSites } from '@/hooks/useDiveSites';
+import { useDiveSafaris } from '@/hooks/useDiveSafaris';
 import { usePackages } from '@/hooks/usePackages';
 import { usePromotions } from '@/hooks/usePromotions';
 import { useServices } from '@/hooks/useServices';
@@ -15,12 +15,12 @@ import { useTestimonials } from '@/hooks/useTestimonials';
 import { useGalleryImages } from '@/hooks/useGalleryImages';
 import { useWebsiteSettings } from '@/hooks/useWebsiteSettings';
 import { combineAsyncStates } from '@/hooks/useAsyncData';
-import { PackageCard, ServiceCard, PromotionCard, CourseCard, DiveSiteCard, TestimonialCard, IconFeatureGrid, PageLoader, PageError } from '@/components/common';
+import { PackageCard, ServiceCard, PromotionCard, CourseCard, DiveSafariCard, TestimonialCard, IconFeatureGrid, PageLoader, PageError } from '@/components/common';
 
 export default function Home() {
   const homepageResult = useHomepage();
   const heroBackgroundsResult = useHomeHeroBackgrounds();
-  const diveSitesResult = useDiveSites();
+  const diveSafarisResult = useDiveSafaris();
   const packagesResult = usePackages();
   const promotionsResult = usePromotions();
   const servicesResult = useServices();
@@ -30,7 +30,7 @@ export default function Home() {
 
   const { data: homepage } = homepageResult;
   const { data: heroBackgrounds } = heroBackgroundsResult;
-  const { data: diveSites } = diveSitesResult;
+  const { data: diveSafaris } = diveSafarisResult;
   const { data: packages } = packagesResult;
   const { data: promotions } = promotionsResult;
   const { data: services } = servicesResult;
@@ -38,7 +38,7 @@ export default function Home() {
   const { data: galleryImages } = galleryImagesResult;
   const { data: settings } = settingsResult;
 
-  const featuredSites = (diveSites ?? []).slice(0, 4);
+  const featuredSites = (diveSafaris ?? []).slice(0, 4);
   const heroSlides = homepage?.heroSlides ?? [];
   const backgrounds = heroBackgrounds ?? [];
 
@@ -156,7 +156,7 @@ export default function Home() {
   const { isLoading, error } = combineAsyncStates(
     homepageResult,
     heroBackgroundsResult,
-    diveSitesResult,
+    diveSafarisResult,
     packagesResult,
     promotionsResult,
     servicesResult,
@@ -371,13 +371,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. FEATURED DIVE SITES */}
+      {/* 3. FEATURED DIVE SAFARIS */}
       <section className="py-24 relative">
         <div className="container max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground uppercase tracking-wide flex items-center justify-center gap-4">
               <span className="w-8 h-px bg-gold hidden sm:block" />
-              {homepage.featuredDiveSites.heading}
+              {homepage.featuredDiveSafaris.heading}
               <span className="w-8 h-px bg-gold hidden sm:block" />
             </h2>
           </div>
@@ -385,7 +385,7 @@ export default function Home() {
           <div className="relative">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {featuredSites.map((site) => (
-                <DiveSiteCard key={site.id} site={site} />
+                <DiveSafariCard key={site.id} site={site} />
               ))}
             </div>
 
@@ -409,8 +409,8 @@ export default function Home() {
           </div>
 
           <div className="mt-12 text-center">
-            <Link href="/dive-sites" className="btn-premium-secondary text-sm inline-flex items-center gap-2">
-              {homepage.featuredDiveSites.ctaLabel}
+            <Link href="/dive-safaris" className="btn-premium-secondary text-sm inline-flex items-center gap-2">
+              {homepage.featuredDiveSafaris.ctaLabel}
               <ArrowRight className="w-4 h-4 text-primary" />
             </Link>
           </div>
@@ -695,7 +695,10 @@ export default function Home() {
               </div>
               <div className="flex-grow relative bg-slate-900">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3748.34925453057!2d57.54324857616065!3d-20.035808741613913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x217dacaed25f4d75%3A0x1814f7c7bab412c1!2sDive%20Dream%20Divers!5e0!3m2!1sen!2smu!4v1781795341840!5m2!1sen!2smu"
+                  // Address-query embed (geocodes live, no API key or fixed
+                  // coordinates needed) — swap for a precise Place ID embed
+                  // once the exact Becosy Hotel Google Maps listing is confirmed.
+                  src="https://www.google.com/maps?q=Becosy+Hotel%2C+Royal+Road%2C+Trou+aux+Biches%2C+Mauritius&output=embed"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: 0 }}
                   allowFullScreen

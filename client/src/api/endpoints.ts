@@ -2,7 +2,11 @@
 // referenced from services/*.service.ts once fetchAPI() is implemented.
 
 export const ENDPOINTS = {
-  diveSites: '/api/dive-sites',
+  // "Dive Sites" -> "Dive Safaris" rename is frontend-only for now — these
+  // still point at Strapi's `/api/dive-sites*` content-types. Renaming the
+  // path values requires renaming the Strapi content-type first (see the
+  // CMS notes), otherwise the live collection 404s.
+  diveSafaris: '/api/dive-sites',
   courses: '/api/courses',
   packages: '/api/dive-packages',
   promotions: '/api/promotions',
@@ -15,15 +19,13 @@ export const ENDPOINTS = {
   aboutPage: '/api/about-page',
   contactPage: '/api/contact-page',
   websiteSettings: '/api/website-settings',
-  equipmentPage: '/api/equipment-page',
-  diveCenterPage: '/api/dive-center-page',
-  divingPage: '/api/diving-page',
   boatPage: '/api/boat-page',
   coursesPage: '/api/courses-page',
-  diveSitesPage: '/api/dive-sites-page',
+  diveSafarisPage: '/api/dive-sites-page',
   packagesPage: '/api/packages-page',
   promotionsPage: '/api/promotions-page',
   faqPage: '/api/faq-page',
   servicesPage: '/api/services-page',
   crewPage: '/api/crew-page',
+  rebreatherDivingPage: '/api/rebreather-diving-page',
 } as const;

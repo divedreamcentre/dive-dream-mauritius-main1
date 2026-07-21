@@ -1,22 +1,18 @@
 import type { WebsiteSettings } from '@/types';
 import { branding } from './media';
 
-// Single source of truth for nav, footer, and contact info.
-// Previously this data was duplicated (and had drifted) across Layout.tsx
-// (x2 — header + mobile drawer), Contact.tsx, and DiveCenter.tsx: the
-// address differed between "100 Marine Drive, Siren Bay, MB 1204" and
-// "Royal Road, Trou aux Biches, Mauritius". Standardized here on the
-// former since it matched the majority of references (Home.tsx map +
-// DiveCenter.tsx).
+// Single source of truth for nav, footer, and contact info. Update contact
+// details here only — Layout.tsx, Contact.tsx, and Home.tsx's map section
+// all read from this one object, so nothing else needs to change.
 export const WEBSITE_SETTINGS: WebsiteSettings = {
   siteName: 'Dive Dream Divers',
   tagline: 'UNDERWATER FEELS LIKE HOME',
   logo: branding.logo,
   contact: {
-    phone: '+230 58310098',
+    phone: '+230 57535352',
     email: 'divedreamcentre@gmail.com',
-    address: '100 Marine Drive, Siren Bay, MB 1204',
-    whatsapp: 'https://wa.me/23058310098',
+    address: 'Becosy Hotel, Royal Road, Trou aux Biches',
+    whatsapp: 'https://wa.me/23057535352',
     operatingHours: 'Daily: 07:00 AM - 06:00 PM GMT+8',
   },
   // TODO: replace with the real profile URLs once provided.
@@ -27,19 +23,17 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
   ],
   navLinks: [
     { href: '/', label: 'Home' },
-    { href: '/dive-sites', label: 'Dive Sites' },
+    { href: '/dive-safaris', label: 'Dive Safaris' },
     { href: '/packages', label: 'Packages' },
     { href: '/courses', label: 'Courses' },
     { href: '/services', label: 'Services' },
+    { href: '/rebreather-diving', label: 'Rebreather Diving' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
   ],
   secondaryLinks: [
     { href: '/promotions', label: 'Promotions' },
     { href: '/crew', label: 'Our Crew' },
-    { href: '/equipment', label: 'Equipment' },
-    { href: '/dive-center', label: 'Dive Center' },
-    { href: '/diving', label: 'Diving' },
     { href: '/faq', label: 'FAQs' },
   ],
   utilityBadges: ['SDI / TDI 5-Star Dive Center', 'Nitrox Membrane Station'],
@@ -50,8 +44,9 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
       {
         title: 'Explore',
         links: [
-          { href: '/dive-sites', label: 'Dive Sites' },
+          { href: '/dive-safaris', label: 'Dive Safaris' },
           { href: '/courses', label: 'Courses' },
+          { href: '/rebreather-diving', label: 'Rebreather Diving' },
           { href: '/packages', label: 'Dive Packages' },
           { href: '/promotions', label: 'Promotions' },
           { href: '/services', label: 'Services' },
@@ -63,9 +58,6 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
         links: [
           { href: '/about', label: 'About Us' },
           { href: '/crew', label: 'Our Crew' },
-          { href: '/equipment', label: 'Equipment & Safety' },
-          { href: '/diving', label: 'Diving' },
-          { href: '/dive-center', label: 'Dive Center' },
           { href: '/faq', label: 'FAQs' },
           { href: '/contact', label: 'Contact' },
         ],

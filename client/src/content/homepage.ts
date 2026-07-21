@@ -8,20 +8,20 @@ export const HOMEPAGE: Homepage = {
     titleLine2: 'Underwater World',
     description: 'Professional SDI & TDI Training, 40+ Pristine Dive Sites, and Unforgettable Marine Adventures in Mauritius since 2004.',
     primaryCta: { label: 'Book Your Dive', href: '/reservations', variant: 'gold' },
-    secondaryCta: { label: 'Explore Dive Sites', href: '/dive-sites', variant: 'secondary' },
+    secondaryCta: { label: 'Explore Dive Safaris', href: '/dive-safaris', variant: 'secondary' },
     trustBadge: { years: '20+', label: 'Trusted by Divers Worldwide', ratingCount: 5 },
   },
   heroSlides: [
-    { image: home.heroSlides[0], title: 'Explore Crystal Waters', subtitle: 'Dive into 40+ pristine sites across Mauritius', href: '/dive-sites' },
-    { image: home.heroSlides[1], title: 'Historic Wreck Diving', subtitle: 'Discover fascinating underwater relics and marine ecosystems', href: '/dive-sites' },
-    { image: home.heroSlides[2], title: 'Vibrant Coral Gardens', subtitle: 'Swim through some of the Indian Ocean\'s richest reefs', href: '/dive-sites' },
+    { image: home.heroSlides[0], title: 'Explore Crystal Waters', subtitle: 'Dive into 40+ pristine sites across Mauritius', href: '/dive-safaris' },
+    { image: home.heroSlides[1], title: 'Historic Wreck Diving', subtitle: 'Discover fascinating underwater relics and marine ecosystems', href: '/dive-safaris' },
+    { image: home.heroSlides[2], title: 'Vibrant Coral Gardens', subtitle: 'Swim through some of the Indian Ocean\'s richest reefs', href: '/dive-safaris' },
     { image: home.heroSlides[3], title: 'Professional Training', subtitle: 'SDI & TDI certified courses from beginner to instructor', href: '/services' },
     { image: home.heroSlides[4], title: 'Luxury Dive Vessel', subtitle: 'Set sail on our custom-built catamaran for every expedition' },
   ],
   trustStats: [
     { id: 'safety', title: 'Safety First', description: '100% Safety Record', icon: 'Shield' },
     { id: 'training', title: 'SDI & TDI 5-Star Center', description: 'Elite Training Facility', icon: 'Award' },
-    { id: 'sites', title: '40+ Dive Sites', description: 'From Coral Reefs to Wrecks', icon: 'Anchor' },
+    { id: 'sites', title: '40+ Dive Safaris', description: 'From Coral Reefs to Wrecks', icon: 'Anchor' },
     { id: 'experiences', title: 'Premium Experiences', description: 'Small Groups, Big Adventures', icon: 'Compass' },
   ],
   promotionBanner: {
@@ -30,9 +30,9 @@ export const HOMEPAGE: Homepage = {
     countdown: { days: '05', hours: '14', mins: '32' },
     ctaLabel: 'Claim Offer',
   },
-  featuredDiveSites: {
-    heading: 'Explore Mauritius\' Best Dive Sites',
-    ctaLabel: 'View All Dive Sites',
+  featuredDiveSafaris: {
+    heading: 'Explore Mauritius\' Best Dive Safaris',
+    ctaLabel: 'View All Dive Safaris',
   },
   quickFeatures: [
     { id: 'boat-dives', title: 'Daily Boat Dives', description: 'Departures every day', icon: 'Anchor' },

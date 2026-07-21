@@ -1,14 +1,14 @@
 import { Link } from 'wouter';
 import { Waves, Award } from 'lucide-react';
-import type { DiveSite } from '@/types';
+import type { DiveSafari } from '@/types';
 
-// The photo-caption dive-site card used in Home.tsx's featured grid. All 4
-// dedicated dive-site pages/detail views use a different layout (see
-// DiveSites.tsx), so this one is Home-specific rather than shared further.
-export function DiveSiteCard({ site }: { site: DiveSite }) {
+// The photo-caption dive-safari card used in Home.tsx's featured grid. All 4
+// dedicated dive-safari pages/detail views use a different layout (see
+// DiveSafaris.tsx), so this one is Home-specific rather than shared further.
+export function DiveSafariCard({ site }: { site: DiveSafari }) {
   return (
     <Link
-      href="/dive-sites"
+      href="/dive-safaris"
       className="group relative aspect-[4/5] rounded-2xl overflow-hidden shadow-md shadow-black/10 border border-border block"
     >
       <img

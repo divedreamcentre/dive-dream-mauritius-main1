@@ -13,8 +13,11 @@ export const CONTACT_PAGE: ContactPage = {
   },
   formHeading: 'Send Us A Message',
   mapConfig: {
-    center: { lat: -20.035808741613913, lng: 57.54324857616065 },
-    zoom: 14,
-    markerTitle: 'Dive Dream Divers Headquarters',
+    // TODO: these are Trou aux Biches town-center coordinates, not the
+    // exact Becosy Hotel pin — drop a pin on the real hotel location in
+    // Google Maps and swap in the precise lat/lng.
+    center: { lat: -20.05, lng: 57.55 },
+    zoom: 15,
+    markerTitle: 'Dive Dream Divers — Becosy Hotel, Trou aux Biches',
   },
 };

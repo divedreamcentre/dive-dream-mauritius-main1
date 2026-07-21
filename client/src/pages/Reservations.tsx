@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
-import { Shield, CheckCircle2, AlertTriangle, Calendar, Users, CheckCircle, Mail, HelpCircle } from 'lucide-react';
+import { Shield, CheckCircle2, AlertTriangle, Calendar, Users, CheckCircle, Mail, Phone, HelpCircle } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { toast } from 'sonner';
 import { supabase } from '@/lib/supabase';
 import { usePackages } from '@/hooks/usePackages';
 import { useCourses } from '@/hooks/useCourses';
 import { useServices } from '@/hooks/useServices';
+import { useDiveSafaris } from '@/hooks/useDiveSafaris';
 import { useWebsiteSettings } from '@/hooks/useWebsiteSettings';
 import { combineAsyncStates } from '@/hooks/useAsyncData';
 import { PageLoader, PageError } from '@/components/common';
 import { formatPrice } from '@/utils';
 
-type ServiceCategory = '' | 'packages' | 'courses' | 'services';
+type ServiceCategory = '' | 'packages' | 'courses' | 'services' | 'diveSafaris';
 
 export default function Reservations() {
   const [location] = useLocation();
   const packagesResult = usePackages();
   const coursesResult = useCourses();
   const servicesResult = useServices();
+  const diveSafarisResult = useDiveSafaris();
   const settingsResult = useWebsiteSettings();
   const { data: packages } = packagesResult;
   const { data: courses } = coursesResult;
   const { data: services } = servicesResult;
+  const { data: diveSafaris } = diveSafarisResult;
   const { data: settings } = settingsResult;
 
   const [fullName, setFullName] = useState('');
@@ -42,6 +45,7 @@ export default function Reservations() {
     const pkgId = params.get('package');
     const courseId = params.get('course');
     const serviceId = params.get('service');
+    const diveSafariId = params.get('diveSafari');
 
     if (pkgId) {
       setServiceCategory('packages');
@@ -52,6 +56,9 @@ export default function Reservations() {
     } else if (serviceId) {
       setServiceCategory('services');
       setSelectedOption(serviceId);
+    } else if (diveSafariId) {
+      setServiceCategory('diveSafaris');
+      setSelectedOption(diveSafariId);
     }
   }, [location]);
 
@@ -70,6 +77,9 @@ export default function Reservations() {
     }
     if (serviceCategory === 'services') {
       return `Service: ${services?.find(s => s.id === selectedOption)?.title}`;
+    }
+    if (serviceCategory === 'diveSafaris') {
+      return `Dive Safari: ${diveSafaris?.find(d => d.id === selectedOption)?.name}`;
     }
     return null;
   };
@@ -135,7 +145,7 @@ export default function Reservations() {
     setIsExpanded(false);
   };
 
-  const { isLoading, error } = combineAsyncStates(packagesResult, coursesResult, servicesResult, settingsResult);
+  const { isLoading, error } = combineAsyncStates(packagesResult, coursesResult, servicesResult, diveSafarisResult, settingsResult);
   if (isLoading) return <PageLoader />;
   if (error) return <PageError />;
 
@@ -225,6 +235,14 @@ export default function Reservations() {
                     >
                       <Mail className="w-4 h-4" /> Email Operations Desk
                     </a>
+                    {settings?.contact.phone && (
+                      <a
+                        href={`tel:${settings.contact.phone.replace(/\s/g, '')}`}
+                        className="btn-premium-secondary py-3 px-6 text-sm flex items-center justify-center gap-2"
+                      >
+                        <Phone className="w-4 h-4" /> Call {settings.contact.phone}
+                      </a>
+                    )}
                   </div>
                 </div>
               ) : (
@@ -307,6 +325,7 @@ export default function Reservations() {
                             <option value="">-- Select a Category --</option>
                             <option value="packages">Dive Packages</option>
                             <option value="courses">Dive Courses</option>
+                            <option value="diveSafaris">Dive Safaris</option>
                             <option value="services">Other Services</option>
                           </select>
                         </div>
@@ -322,8 +341,21 @@ export default function Reservations() {
                           <label className="text-xs text-muted-foreground font-semibold">
                             {serviceCategory === 'packages' && 'Select Dive Package'}
                             {serviceCategory === 'courses' && 'Select Dive Course'}
+                            {serviceCategory === 'diveSafaris' && 'Select Dive Safari'}
                             {serviceCategory === 'services' && 'Select Service'}
                           </label>
+                          {serviceCategory === 'diveSafaris' && (
+                            <select
+                              value={selectedOption}
+                              onChange={(e) => setSelectedOption(e.target.value)}
+                              className="bg-background border border-border rounded-lg px-4 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+                            >
+                              <option value="">-- Choose a Dive Safari --</option>
+                              {(diveSafaris ?? []).map(d => (
+                                <option key={d.id} value={d.id}>{d.name}</option>
+                              ))}
+                            </select>
+                          )}
                           {serviceCategory === 'packages' && (
                             <select
                               value={selectedOption}
