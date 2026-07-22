@@ -10,9 +10,10 @@ export const DIVE_SAFARIS: DiveSafari[] = [
     description: 'Located off the northern coast of Mauritius, the iconic Coin de Mire (also known as Gunner\'s Quoin) is one of the island\'s most renowned diving destinations. Its dramatic underwater topography, clear waters, and rich marine biodiversity make it a must-visit site for divers of all experience levels.',
     location: 'Northern Mauritius',
     maxDepth: '40m (130ft)',
-    certificationLevel: 'Advanced',
+    certificationLevel: 'Beginner',
     type: ['Deep', 'Wall', 'Drift'],
     marineLife: ['Groupers', 'Snappers', 'Barracudas', 'Reef Sharks', 'Large Pelagic Species'],
+    diveSites: ['Jabeda Wreck', 'The Wall', 'Confetti Bay', 'Lost Anchor'],
     highlights: [
       'Spectacular underwater cliffs and drop-offs',
       'Excellent visibility, often exceeding 20 metres',
@@ -23,7 +24,7 @@ export const DIVE_SAFARIS: DiveSafari[] = [
     visibility: '25m - 40m',
     waterTemp: '24°C - 28°C (75°F - 82°F)',
     bestSeason: 'October to April',
-    weatherConditions: 'Moderate to strong currents, suitable for advanced divers.',
+    weatherConditions: 'Conditions vary by site — generally mild and suitable for Open Water divers, with a few sites better suited to more experienced divers.',
     image: diveSafariImages.coinDeMire,
   },
   {
@@ -33,7 +34,7 @@ export const DIVE_SAFARIS: DiveSafari[] = [
     description: 'Located north of Mauritius, Ile Plate is one of the most remote and rewarding diving destinations in the region. Surrounded by pristine reefs and crystal-clear waters, the island offers exceptional diving opportunities for those seeking adventure beyond the mainland.',
     location: 'Northern Mauritius',
     maxDepth: '35m (115ft)',
-    certificationLevel: 'Intermediate',
+    certificationLevel: 'Beginner',
     type: ['Reef', 'Deep'],
     marineLife: ['Clownfish', 'Parrotfish', 'Moray Eels', 'Trevally'],
     highlights: [
@@ -59,6 +60,7 @@ export const DIVE_SAFARIS: DiveSafari[] = [
     certificationLevel: 'Advanced',
     type: ['Reef', 'Deep', 'Drift', 'Wall'],
     marineLife: ['Grey Reef Sharks', 'Whitetip Reef Sharks', 'Silvertip Sharks', 'Hammerhead Sharks'],
+    diveSites: ['Shark Pits', 'Bande Rouge'],
     highlights: [
       'One of Mauritius\' top locations for pelagic marine life',
       'Dramatic underwater walls and volcanic formations',
@@ -75,8 +77,8 @@ export const DIVE_SAFARIS: DiveSafari[] = [
   {
     id: 'passe-st-jacques',
     name: 'Passe St-Jacques',
-    description: 'Located in Southern Mauritius, Passe St-Jacques is a world-class dive site featuring dramatic underwater canyons, strong currents, and encounters with large pelagic species. A favorite among technical divers.',
-    location: 'Southern Mauritius',
+    description: 'Located at Bel-Ombre in Southern Mauritius, Passe St-Jacques is a world-class dive site featuring dramatic underwater canyons, strong currents, and encounters with large pelagic species. A favorite among technical divers.',
+    location: 'Bel-Ombre, Southern Mauritius',
     maxDepth: '45m (150ft)',
     certificationLevel: 'Advanced',
     type: ['Deep', 'Drift', 'Wall'],
@@ -84,7 +86,7 @@ export const DIVE_SAFARIS: DiveSafari[] = [
     visibility: '25m - 40m',
     waterTemp: '23°C - 26°C (73°F - 79°F)',
     bestSeason: 'May to September',
-    weatherConditions: 'Strong currents, requires advanced skills and experience.',
+    weatherConditions: 'Strong currents and a stiff drift dive — requires advanced skills and experience.',
     image: diveSafariImages.passeStJacques,
   },
 ];

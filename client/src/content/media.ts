@@ -23,13 +23,38 @@ export const branding = {
 // ─── Home Page ───────────────────────────────────────────────────────
 
 export const home = {
+  // Rotating full-bleed hero background slideshow. `objectPosition` keeps
+  // each photo's subject in frame across aspect ratios (mobile portrait
+  // crops the sides hard on landscape sources, desktop wide crops the top
+  // and bottom) — tuned by eye against each source image, worth a visual
+  // spot-check on a real device once deployed.
   heroBackgrounds: [
-    "/images/1.webp",
-    "/images/2.webp",
-    "/images/3.webp",
-    "/images/4.webp",
-    "/images/5.webp",
-    "/images/6.jpeg",
+    {
+      url: "/images/hero-leaf-scorpionfish.webp",
+      alt: "A vivid pink leaf scorpionfish camouflaged against coral and sponge on a Mauritius reef",
+      objectPosition: "38% 42%",
+    },
+    {
+      url: "/images/hero-nudibranch.webp",
+      alt: "A blue-green nudibranch crawling along a soft coral whip",
+      objectPosition: "58% 25%",
+    },
+    {
+      url: "/images/hero-barracuda-school.webp",
+      alt: "A diver approaching a large school of chevron barracuda in open water",
+      objectPosition: "72% 48%",
+    },
+    {
+      // Portrait source (854x1280) on the ultra-wide desktop hero crops to
+      // ~31% of its height either way — the eye is only partially visible
+      // there even at the best object-position (mobile framing is much
+      // better since the container is closer to the source's own aspect).
+      // Swap in a wider/landscape crop of this shot if a clean face-forward
+      // desktop framing matters more than the current moody texture look.
+      url: "/images/hero-honeycomb-moray.webp",
+      alt: "Close-up of a honeycomb moray eel peering out from a reef crevice",
+      objectPosition: "50% 50%",
+    },
   ],
 
   heroSlides: [

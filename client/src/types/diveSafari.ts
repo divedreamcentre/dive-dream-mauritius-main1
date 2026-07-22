@@ -9,6 +9,8 @@ export interface DiveSafari {
   type: ('Wreck' | 'Reef' | 'Deep' | 'Drift' | 'Wall' | 'Night')[];
   marineLife: string[];
   highlights?: string[];
+  /** Individual named dive sites visited as part of this safari (e.g. wrecks, walls, bays). */
+  diveSites?: string[];
   visibility: string;
   waterTemp: string;
   bestSeason: string;

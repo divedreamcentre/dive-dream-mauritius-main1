@@ -11,6 +11,7 @@ import Packages from "./pages/Packages";
 import Reservations from "./pages/Reservations";
 import Promotions from "./pages/Promotions";
 import Services from "./pages/Services";
+import ServiceDetail from "./pages/ServiceDetail";
 import Crew from "./pages/Crew";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/reservations" component={Reservations} />
       <Route path="/promotions" component={Promotions} />
       <Route path="/services" component={Services} />
+      <Route path="/services/:id" component={ServiceDetail} />
       <Route path="/crew" component={Crew} />
       <Route path="/faq" component={FAQ} />
       <Route path="/about" component={About} />

@@ -18,6 +18,7 @@ interface RawDiveSafari extends StrapiEntryBase {
   type: unknown;
   marineLife: unknown;
   highlights: unknown;
+  diveSites: unknown;
   visibility: string | null;
   waterTemp: string | null;
   bestSeason: string | null;
@@ -37,6 +38,7 @@ function mapDiveSafariFromStrapi(raw: RawDiveSafari): DiveSafari {
     type: normalizeStringArray(raw.type) as DiveSafari['type'],
     marineLife: normalizeStringArray(raw.marineLife),
     highlights: normalizeStringArray(raw.highlights),
+    diveSites: normalizeStringArray(raw.diveSites),
     visibility: raw.visibility ?? '',
     waterTemp: raw.waterTemp ?? '',
     bestSeason: raw.bestSeason ?? '',

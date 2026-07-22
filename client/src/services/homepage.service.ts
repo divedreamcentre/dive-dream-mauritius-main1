@@ -7,9 +7,9 @@ import { resolveStrapiMediaUrl } from '@/lib/strapiMappers';
 
 // The homepage single type is only partially configured in Strapi right
 // now — several nested components (hero.primaryCta/secondaryCta/trustBadge,
-// promotionBanner.countdown, coursesSection.coreCourses/specialtyNames,
-// languagesSection.languages) aren't filled in yet, and Strapi omits a
-// component's key entirely rather than sending it as null when it's empty.
+// promotionBanner.countdown, coursesSection.coreCourses/specialtyNames)
+// aren't filled in yet, and Strapi omits a component's key entirely rather
+// than sending it as null when it's empty.
 // Every section below is merged as `{ ...HOMEPAGE.section, ...entry.section }`
 // so any field Strapi hasn't configured yet quietly inherits the rich local
 // default instead of crashing (`.href`/`.map()` on undefined), while any
@@ -20,6 +20,12 @@ interface RawActivity {
   title: string;
   description?: string | null;
   icon?: string | null;
+}
+
+export interface HeroBackground {
+  url: string;
+  alt: string;
+  objectPosition?: string;
 }
 
 interface RawHomepage {
@@ -36,7 +42,6 @@ interface RawHomepage {
   servicesSection?: Partial<Homepage['servicesSection']>;
   testimonialsSection?: Partial<Homepage['testimonialsSection']>;
   gallerySection?: Partial<Homepage['gallerySection']>;
-  languagesSection?: Partial<Homepage['languagesSection']>;
   contactSection?: Partial<Homepage['contactSection']>;
 }
 
@@ -73,7 +78,6 @@ export async function getHomepage(): Promise<Homepage> {
       servicesSection: { ...HOMEPAGE.servicesSection, ...entry.servicesSection },
       testimonialsSection: { ...HOMEPAGE.testimonialsSection, ...entry.testimonialsSection },
       gallerySection: { ...HOMEPAGE.gallerySection, ...entry.gallerySection },
-      languagesSection: { ...HOMEPAGE.languagesSection, ...entry.languagesSection },
       contactSection: { ...HOMEPAGE.contactSection, ...entry.contactSection },
     };
   } catch (err) {
@@ -82,16 +86,25 @@ export async function getHomepage(): Promise<Homepage> {
   }
 }
 
-export async function getHomeHeroBackgrounds(): Promise<string[]> {
+export async function getHomeHeroBackgrounds(): Promise<HeroBackground[]> {
   // Home.tsx's rotating full-bleed background slideshow reads from the
   // `homepage` single type's `heroBackgrounds` media (multiple) field in
   // Strapi. Falls back to the local bundled images if that field is empty
-  // or the single type isn't reachable yet.
+  // or the single type isn't reachable yet. Strapi media entries carry
+  // their own `alternativeText` field for alt text — no `objectPosition`
+  // equivalent exists in Strapi, so CMS-sourced images fall back to a
+  // centered crop until that's worth adding as a field there too.
   try {
     const raw = await fetchAPI<StrapiSingleResponse<RawHomepage>>(ENDPOINTS.homepage);
     const media = raw.data.heroBackgrounds ?? [];
-    const urls = media.map((item) => resolveStrapiMediaUrl(item)).filter(Boolean);
-    return urls.length ? urls : HOME_HERO_BACKGROUNDS;
+    const backgrounds = media
+      .map((item): HeroBackground | null => {
+        const url = resolveStrapiMediaUrl(item);
+        if (!url) return null;
+        return { url, alt: item.alternativeText ?? 'Underwater photo from Dive Dream Divers, Mauritius' };
+      })
+      .filter((item): item is HeroBackground => item !== null);
+    return backgrounds.length ? backgrounds : HOME_HERO_BACKGROUNDS;
   } catch (err) {
     console.warn('[Strapi] homepage heroBackgrounds unavailable, using local content fallback', err);
     return HOME_HERO_BACKGROUNDS;

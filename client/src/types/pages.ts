@@ -13,6 +13,8 @@ export interface WebsiteSettings {
   navLinks: NavLink[];
   secondaryLinks: NavLink[];
   utilityBadges: string[];
+  /** Languages spoken, shown as a compact flag group in the nav bar. */
+  languages: { lang: string; flag: string; label: string }[];
   footer: {
     description: string;
     badges: string[];
@@ -59,9 +61,6 @@ export interface Homepage {
   servicesSection: SectionHeading & { ctaLabel: string };
   testimonialsSection: SectionHeading;
   gallerySection: SectionHeading;
-  languagesSection: SectionHeading & {
-    languages: { lang: string; flag: string; label: string }[];
-  };
   contactSection: {
     eyebrow: string;
     title: string;

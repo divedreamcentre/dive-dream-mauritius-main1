@@ -83,16 +83,6 @@ export const HOMEPAGE: Homepage = {
     title: 'Gallery',
     description: 'A glimpse into the breathtaking underwater landscapes and marine encounters that await you in Mauritius.',
   },
-  languagesSection: {
-    eyebrow: 'International Welcome',
-    title: 'We Speak Your Language',
-    description: 'We provide all courses and services in multiple languages to support international learners and clients.',
-    languages: [
-      { lang: 'English', flag: '🇬🇧', label: 'EN' },
-      { lang: 'Français', flag: '🇫🇷', label: 'FR' },
-      { lang: 'Deutsch', flag: '🇩🇪', label: 'DE' },
-    ],
-  },
   contactSection: {
     eyebrow: 'Have Questions?',
     title: 'Get in Touch',

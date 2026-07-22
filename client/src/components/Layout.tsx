@@ -46,6 +46,8 @@ export default function Layout({ children }: LayoutProps) {
   const contact = settings?.contact;
   const footer = settings?.footer;
   const socialLinks = settings?.socialLinks ?? [];
+  const languages = settings?.languages ?? [];
+  const languagesLabel = `Languages spoken: ${languages.map((item) => item.lang).join(', ')}`;
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -133,6 +135,17 @@ export default function Layout({ children }: LayoutProps) {
                 ))}
               </div>
             </div>
+
+            {/* Languages spoken — purely decorative flags, see mobile drawer for the labeled equivalent */}
+            {languages.length > 0 && (
+              <div className="flex items-center gap-1.5 pl-4 border-l border-white/10" aria-label={languagesLabel}>
+                {languages.map((item) => (
+                  <span key={item.label} className="text-base leading-none" title={item.lang} aria-hidden="true">
+                    {item.flag}
+                  </span>
+                ))}
+              </div>
+            )}
           </nav>
 
           {/* CTAs */}
@@ -193,6 +206,20 @@ export default function Layout({ children }: LayoutProps) {
                 })}
               </div>
             </div>
+
+            {languages.length > 0 && (
+              <div className="border-t border-white/10 pt-4 flex flex-col space-y-3">
+                <span className="text-[10px] uppercase tracking-widest text-primary font-bold px-2">Languages Spoken</span>
+                <div className="flex items-center gap-4 px-2">
+                  {languages.map((item) => (
+                    <span key={item.label} className="flex items-center gap-1.5 text-sm text-white/70">
+                      <span aria-hidden="true" className="text-lg leading-none">{item.flag}</span>
+                      {item.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="border-t border-white/10 pt-6 flex flex-col space-y-4">
               <Link href="/reservations" className="btn-premium-gold w-full text-center py-3">

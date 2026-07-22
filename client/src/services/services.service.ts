@@ -4,7 +4,7 @@ import { SERVICES } from '@/content';
 import { shared } from '@/content/media';
 import { fetchAPI } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
-import { extractPlainText, resolveStrapiMediaUrl, unwrapCollection } from '@/lib/strapiMappers';
+import { extractPlainText, normalizeStringArray, resolveStrapiMediaUrl, unwrapCollection } from '@/lib/strapiMappers';
 import { formatPrice } from '@/utils';
 
 interface RawService extends StrapiEntryBase {
@@ -12,6 +12,7 @@ interface RawService extends StrapiEntryBase {
   // May come back as a plain string or, if Strapi has this field configured
   // as Rich Text (Blocks), a JSON array of block nodes — see extractPlainText().
   description: unknown;
+  highlights?: unknown;
   price?: { amount?: number; currency?: Price['currency']; unitLabel?: string } | string;
   image: StrapiMedia | null;
 }
@@ -27,6 +28,7 @@ function mapServiceFromStrapi(raw: RawService): Service {
     id: raw.documentId,
     title: raw.title,
     description: extractPlainText(raw.description),
+    highlights: normalizeStringArray(raw.highlights),
     price,
     image: resolveStrapiMediaUrl(raw.image) || shared.heroUnderwater,
   };
@@ -40,4 +42,9 @@ export async function getServices(): Promise<Service[]> {
     console.warn('[Strapi] services unavailable, using local content fallback', err);
     return SERVICES;
   }
+}
+
+export async function getServiceById(id: string): Promise<Service | undefined> {
+  const services = await getServices();
+  return services.find((service) => service.id === id);
 }

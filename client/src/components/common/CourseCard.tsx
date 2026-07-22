@@ -20,7 +20,7 @@ export function CourseCard({ course, variant = 'full' }: CourseCardProps) {
           </h3>
           <p className="text-sm text-muted-foreground leading-relaxed mb-4">{course.overview}</p>
         </div>
-        <Link href={href} className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold">
+        <Link href={href} className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold py-2.5 -my-2.5">
           Enroll Now <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
@@ -31,7 +31,7 @@ export function CourseCard({ course, variant = 'full' }: CourseCardProps) {
     <div className="glass-panel p-6 hover:border-primary/40 transition-all duration-300">
       <h3 className="text-lg font-serif font-bold text-foreground mb-3">{course.name}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed mb-4">{course.overview}</p>
-      <Link href={href} className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold">
+      <Link href={href} className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm font-semibold py-2.5 -my-2.5">
         Learn More <ArrowRight className="w-4 h-4" />
       </Link>
     </div>

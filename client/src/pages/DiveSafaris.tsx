@@ -192,6 +192,22 @@ export default function DiveSafaris() {
                     {activeSite.description}
                   </p>
 
+                  {/* Dive Sites Included */}
+                  {activeSite.diveSites && activeSite.diveSites.length > 0 && (
+                    <div className="mb-8">
+                      <h4 className="text-foreground font-semibold mb-4 text-sm uppercase tracking-wider">
+                        Dive Sites on This Safari
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {activeSite.diveSites.map((diveSite) => (
+                          <span key={diveSite} className="bg-secondary border border-border text-foreground px-3 py-1.5 rounded-full text-xs font-medium">
+                            {diveSite}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Site Highlights */}
                   {activeSite.highlights && activeSite.highlights.length > 0 && (
                     <div className="mb-8">

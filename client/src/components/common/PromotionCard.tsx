@@ -40,7 +40,7 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
           </span>
           <Link
             href={promotion.ctaHref ?? `/reservations?promo=${promotion.code}`}
-            className="text-xs text-primary font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1"
+            className="text-xs text-primary font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1 py-2.5 -my-2.5"
           >
             Apply <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -115,7 +115,7 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
           <span className="font-mono text-sm font-bold text-foreground tracking-wider">{promotion.code}</span>
           <button
             onClick={() => onCopyCode?.(promotion.code)}
-            className="text-xs text-primary font-bold uppercase tracking-wider hover:underline cursor-pointer"
+            className="text-xs text-primary font-bold uppercase tracking-wider hover:underline cursor-pointer py-2.5 -my-2.5"
           >
             {copiedCode === promotion.code ? 'Copied!' : 'Copy Code'}
           </button>

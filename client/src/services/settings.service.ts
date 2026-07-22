@@ -19,6 +19,7 @@ interface RawWebsiteSettings {
   navLinks?: NavLink[];
   secondaryLinks?: NavLink[];
   utilityBadges?: unknown;
+  languages?: WebsiteSettings['languages'];
   footer: {
     description: string;
     badges?: unknown;
@@ -41,6 +42,7 @@ export async function getWebsiteSettings(): Promise<WebsiteSettings> {
       navLinks: entry.navLinks ?? [],
       secondaryLinks: entry.secondaryLinks ?? [],
       utilityBadges: normalizeStringArray(entry.utilityBadges),
+      languages: entry.languages ?? WEBSITE_SETTINGS.languages,
       footer: {
         description: entry.footer.description,
         badges: normalizeStringArray(entry.footer.badges),

@@ -37,6 +37,11 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
     { href: '/faq', label: 'FAQs' },
   ],
   utilityBadges: ['SDI / TDI 5-Star Dive Center', 'Nitrox Membrane Station'],
+  languages: [
+    { lang: 'English', flag: '🇬🇧', label: 'EN' },
+    { lang: 'Français', flag: '🇫🇷', label: 'FR' },
+    { lang: 'Deutsch', flag: '🇩🇪', label: 'DE' },
+  ],
   footer: {
     description: 'Dive Dream Divers offers professional SDI/TDI training and guided diving expeditions in Mauritius since 2004. Experience over 40 pristine dive sites with our certified instructors and elite crew.',
     badges: ['SDI 5-Star', 'TDI Facility'],

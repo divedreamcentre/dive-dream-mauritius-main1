@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'wouter';
 import Layout from '@/components/Layout';
-import { ArrowRight, Star, Award, MapPin, Waves, Flame, Clock, BookOpen, ChevronLeft, ChevronRight, Globe } from 'lucide-react';
+import { ArrowRight, Star, Award, MapPin, Waves, Flame, Clock, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
@@ -45,9 +45,9 @@ export default function Home() {
   const [heroBgIndex, setHeroBgIndex] = useState(0);
 
   useEffect(() => {
-    backgrounds.forEach((src) => {
+    backgrounds.forEach((bg) => {
       const img = new Image();
-      img.src = src;
+      img.src = bg.url;
     });
   }, [backgrounds]);
 
@@ -172,14 +172,14 @@ export default function Home() {
       {/* 1. HERO SECTION - Full-bleed cinematic */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          {backgrounds.map((src, idx) => (
+          {backgrounds.map((bg, idx) => (
             <img
-              key={src}
-              src={src}
-              alt=""
-              aria-hidden="true"
+              key={bg.url}
+              src={bg.url}
+              alt={bg.alt}
               className="absolute inset-0 w-full h-full object-cover"
               style={{
+                objectPosition: bg.objectPosition ?? 'center',
                 opacity: idx === heroBgIndex ? 1 : 0,
                 transition: 'opacity 1.2s ease-in-out',
               }}
@@ -362,10 +362,15 @@ export default function Home() {
               <button
                 key={idx}
                 onClick={() => scrollTo(idx)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  idx === activeSlide ? 'w-8 bg-gold' : 'w-2 bg-border hover:bg-primary/40'
-                }`}
-              />
+                aria-label={`Go to slide ${idx + 1}`}
+                className="relative p-2.5 before:content-[''] before:absolute before:inset-0"
+              >
+                <span
+                  className={`block h-2 rounded-full transition-all duration-300 ${
+                    idx === activeSlide ? 'w-8 bg-gold' : 'w-2 bg-border hover:bg-primary/40'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>
@@ -628,41 +633,22 @@ export default function Home() {
                 <button
                   key={image.id}
                   onClick={() => scrollToGallery(idx)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    idx === galleryActiveSlide ? 'w-8 bg-gold' : 'w-2 bg-border hover:bg-primary/40'
-                  }`}
-                />
+                  aria-label={`Go to gallery image ${idx + 1}`}
+                  className="relative p-2.5 before:content-[''] before:absolute before:inset-0"
+                >
+                  <span
+                    className={`block h-2 rounded-full transition-all duration-300 ${
+                      idx === galleryActiveSlide ? 'w-8 bg-gold' : 'w-2 bg-border hover:bg-primary/40'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 9. MULTILINGUAL AVAILABILITY */}
-      <section className="py-20 relative border-t border-border">
-        <div className="container max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 border border-gold/30 mb-6">
-            <Globe className="w-4 h-4 text-gold" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-gold">{homepage.languagesSection.eyebrow}</span>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-serif mt-2 mb-4 text-foreground">{homepage.languagesSection.title}</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
-            {homepage.languagesSection.description}
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
-            {homepage.languagesSection.languages.map((item) => (
-              <div key={item.label} className="glass-panel px-8 py-6 flex flex-col items-center gap-3 min-w-[140px]">
-                <span className="text-4xl">{item.flag}</span>
-                <span className="text-base font-serif font-bold text-foreground">{item.lang}</span>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-gold bg-gold/10 border border-gold/20 px-2.5 py-0.5 rounded-full">{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 10. QUICK CONTACT & INTERACTIVE MAP */}
+      {/* 9. QUICK CONTACT & INTERACTIVE MAP */}
       <section className="py-24 relative border-t border-border">
         <div className="container max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">

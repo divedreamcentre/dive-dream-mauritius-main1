@@ -28,19 +28,16 @@ export function ServiceCard({ service, variant = 'full' }: ServiceCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10" />
         </div>
         <div className="p-6 flex flex-col flex-grow">
-          <h3 className="text-lg font-serif font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+          <h3 className="text-lg font-serif font-bold text-foreground mb-2 group-hover:text-primary transition-colors flex-grow">
             {service.title}
           </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-grow">
-            {service.description.slice(0, 120)}...
-          </p>
           <div className="border-t border-border pt-4 flex items-center justify-between">
             <span className="text-sm font-bold text-foreground">{service.price}</span>
             <Link
-              href={`/reservations?service=${service.id}`}
-              className="text-xs text-primary font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1"
+              href={`/services/${service.id}`}
+              className="text-xs text-primary font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1 py-2.5 -my-2.5"
             >
-              Book <ArrowRight className="w-3.5 h-3.5" />
+              View Details <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
@@ -65,11 +62,10 @@ export function ServiceCard({ service, variant = 'full' }: ServiceCardProps) {
           </div>
         </div>
 
-        <div className="p-6 space-y-4">
+        <div className="p-6">
           <h3 className="text-xl font-serif font-bold text-foreground group-hover:text-primary transition-colors">
             {service.title}
           </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
         </div>
       </div>
 
@@ -80,10 +76,10 @@ export function ServiceCard({ service, variant = 'full' }: ServiceCardProps) {
             <span className="text-sm font-bold text-foreground mt-0.5 block">{service.price}</span>
           </div>
           <Link
-            href={`/reservations?service=${service.id}`}
+            href={`/services/${service.id}`}
             className="btn-premium-primary !px-4 !py-2 text-xs uppercase tracking-wider font-bold"
           >
-            Book Service
+            View Details
           </Link>
         </div>
       </div>
