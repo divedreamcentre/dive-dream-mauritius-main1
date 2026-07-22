@@ -38,16 +38,21 @@ export async function getWebsiteSettings(): Promise<WebsiteSettings> {
       tagline: entry.tagline,
       logo: resolveStrapiMediaUrl(entry.logo) || WEBSITE_SETTINGS.logo,
       contact: { ...WEBSITE_SETTINGS.contact, ...entry.contact },
-      socialLinks: entry.socialLinks ?? [],
-      navLinks: entry.navLinks ?? [],
-      secondaryLinks: entry.secondaryLinks ?? [],
+      // These four fields are structural — if Strapi has the singleton but
+      // an editor cleared one of these repeatable fields (or just never
+      // filled it in), `?? []` used to render the nav/social icons/footer
+      // as silently empty instead of falling back. Falling back to the
+      // local default list keeps something reasonable on screen either way.
+      socialLinks: entry.socialLinks ?? WEBSITE_SETTINGS.socialLinks,
+      navLinks: entry.navLinks ?? WEBSITE_SETTINGS.navLinks,
+      secondaryLinks: entry.secondaryLinks ?? WEBSITE_SETTINGS.secondaryLinks,
       utilityBadges: normalizeStringArray(entry.utilityBadges),
       languages: entry.languages ?? WEBSITE_SETTINGS.languages,
       footer: {
         description: entry.footer.description,
         badges: normalizeStringArray(entry.footer.badges),
-        columns: entry.footer.columns ?? [],
-        legalLinks: entry.footer.legalLinks ?? [],
+        columns: entry.footer.columns ?? WEBSITE_SETTINGS.footer.columns,
+        legalLinks: entry.footer.legalLinks ?? WEBSITE_SETTINGS.footer.legalLinks,
         copyrightText: entry.footer.copyrightText,
       },
     };
