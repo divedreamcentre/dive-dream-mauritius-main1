@@ -1,5 +1,5 @@
 import type { AboutPage } from '@/types';
-import { about as aboutImages } from './media';
+import { about as aboutImages, shared } from './media';
 
 export const ABOUT_PAGE: AboutPage = {
   hero: {
@@ -7,6 +7,7 @@ export const ABOUT_PAGE: AboutPage = {
     title: 'About Dive Dream Divers',
     description: 'Established in 2004 in Mauritius, Dive Dream Divers offers professional SDI and TDI training with over 40 pristine dive sites. We combine elite instruction with safety-first operations and a passion for marine conservation.',
   },
+  heroImage: shared.heroUnderwater,
   mission: {
     eyebrow: 'Our Mission',
     title: 'Our Mission: Excellence in Diving',

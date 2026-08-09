@@ -59,7 +59,12 @@ export default function Layout({ children }: LayoutProps) {
               <>
                 <span className="flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-primary" />
-                  <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className="hover:text-white transition-colors">{contact.phone}</a>
+                  {contact.phone.map((phone, idx) => (
+                    <React.Fragment key={phone}>
+                      {idx > 0 && <span className="text-white/30">/</span>}
+                      <a href={`tel:${phone.replace(/\s/g, '')}`} className="hover:text-white transition-colors">{phone}</a>
+                    </React.Fragment>
+                  ))}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Mail className="w-3.5 h-3.5 text-primary" />
@@ -138,9 +143,9 @@ export default function Layout({ children }: LayoutProps) {
 
             {/* Languages spoken — purely decorative flags, see mobile drawer for the labeled equivalent */}
             {languages.length > 0 && (
-              <div className="flex items-center gap-1.5 pl-4 border-l border-white/10" aria-label={languagesLabel}>
+              <div className="flex items-center gap-2 pl-4 border-l border-white/10" aria-label={languagesLabel}>
                 {languages.map((item) => (
-                  <span key={item.label} className="text-base leading-none" title={item.lang} aria-hidden="true">
+                  <span key={item.label} className="text-xl leading-none" title={item.lang} aria-hidden="true">
                     {item.flag}
                   </span>
                 ))}
@@ -213,7 +218,7 @@ export default function Layout({ children }: LayoutProps) {
                 <div className="flex items-center gap-4 px-2">
                   {languages.map((item) => (
                     <span key={item.label} className="flex items-center gap-1.5 text-sm text-white/70">
-                      <span aria-hidden="true" className="text-lg leading-none">{item.flag}</span>
+                      <span aria-hidden="true" className="text-xl leading-none">{item.flag}</span>
                       {item.label}
                     </span>
                   ))}
@@ -227,10 +232,12 @@ export default function Layout({ children }: LayoutProps) {
               </Link>
               {contact && (
                 <div className="flex flex-col items-center space-y-2 text-sm text-white/70">
-                  <span className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-primary" />
-                    <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
-                  </span>
+                  {contact.phone.map((phone) => (
+                    <span key={phone} className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
+                    </span>
+                  ))}
                   <span className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-primary" />
                     <a href={`mailto:${contact.email}`}>{contact.email}</a>

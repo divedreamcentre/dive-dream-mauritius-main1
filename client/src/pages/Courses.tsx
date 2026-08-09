@@ -3,7 +3,7 @@ import { Globe, BookOpen, Waves, Award, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useCoursesPage } from '@/hooks/useCoursesPage';
 import { combineAsyncStates } from '@/hooks/useAsyncData';
-import { CourseCard, PageLoader, PageError } from '@/components/common';
+import { CourseCard, PageHeader, PageLoader, PageError } from '@/components/common';
 
 export default function Courses() {
   const pageResult = useCoursesPage();
@@ -15,16 +15,7 @@ export default function Courses() {
 
   return (
     <Layout>
-      {/* Header */}
-      <section className="relative py-24 border-b border-border">
-        <div className="container text-center max-w-3xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary">{page.hero.eyebrow}</span>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-foreground mt-2 mb-4">{page.hero.title}</h1>
-          <p className="text-muted-foreground">
-            {page.hero.description}
-          </p>
-        </div>
-      </section>
+      <PageHeader eyebrow={page.hero.eyebrow} title={page.hero.title} description={page.hero.description} image={page.heroImage} />
 
       {/* Languages Offered */}
       <section className="py-20 border-b border-border">

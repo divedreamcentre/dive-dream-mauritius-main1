@@ -1,4 +1,5 @@
 import type { RebreatherDivingPage } from '@/types';
+import { shared } from './media';
 
 // TODO: This entire page is placeholder copy — Dive Dream didn't provide
 // real rebreather program details (unit brand/model, actual course names,
@@ -12,6 +13,7 @@ export const REBREATHER_DIVING_PAGE: RebreatherDivingPage = {
     title: 'Rebreather Diving',
     description: 'Silent, efficient, and immersive — closed-circuit rebreather diving lets you stay underwater longer, get closer to marine life, and breathe a precisely managed gas mix. Explore what it takes to get started.',
   },
+  heroImage: shared.diveSiteWreck,
   whatIsItSection: {
     eyebrow: 'What Is It',
     title: 'Rebreathing, Reimagined',

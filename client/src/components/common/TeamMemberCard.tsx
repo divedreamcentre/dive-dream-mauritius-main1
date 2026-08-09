@@ -3,7 +3,7 @@ import type { TeamMember } from '@/types';
 
 export function TeamMemberCard({ member }: { member: TeamMember }) {
   return (
-    <div className="glass-panel overflow-hidden group flex flex-col h-full justify-between">
+    <div className="glass-panel overflow-hidden group flex flex-col h-full justify-between border-gold/30 bg-gold/5 hover:border-gold/60 transition-colors">
       <div>
         <div className="h-72 overflow-hidden relative">
           <img

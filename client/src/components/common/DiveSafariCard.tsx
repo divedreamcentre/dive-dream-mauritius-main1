@@ -9,7 +9,7 @@ export function DiveSafariCard({ site }: { site: DiveSafari }) {
   return (
     <Link
       href="/dive-safaris"
-      className="group relative aspect-[4/5] rounded-2xl overflow-hidden shadow-md shadow-black/10 border border-border block"
+      className="group relative aspect-[4/5] rounded-2xl overflow-hidden shadow-md shadow-black/10 border border-gold/40 hover:border-gold/70 transition-colors block"
     >
       <img
         src={site.image}

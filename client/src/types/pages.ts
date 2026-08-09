@@ -76,6 +76,7 @@ export interface Homepage {
 
 export interface AboutPage {
   hero: SectionHeading;
+  heroImage: string;
   mission: SectionHeading & { points: string[]; image: string };
   conservation: SectionHeading & { initiatives: Activity[]; image: string };
 }
@@ -104,6 +105,7 @@ export interface BoatPage {
 
 export interface CoursesPage {
   hero: SectionHeading;
+  heroImage: string;
   languagesSection: SectionHeading & { languages: string[] };
   coreCoursesHeading: string;
   coreCourses: Course[];
@@ -127,6 +129,7 @@ export interface DiveSafarisPage {
 
 export interface RebreatherDivingPage {
   hero: SectionHeading;
+  heroImage: string;
   whatIsItSection: SectionHeading & { points: string[] };
   whoIsItForSection: SectionHeading & { prerequisites: string[] };
   offeringsSection: SectionHeading & { offerings: Activity[] };
@@ -135,6 +138,7 @@ export interface RebreatherDivingPage {
 
 export interface PackagesPage {
   hero: SectionHeading;
+  heroImage: string;
   notice: { title: string; description: string };
 }
 
@@ -150,6 +154,7 @@ export interface FAQPage {
 
 export interface ServicesPage {
   hero: SectionHeading;
+  heroImage: string;
 }
 
 export interface CrewPage {

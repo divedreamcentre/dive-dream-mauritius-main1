@@ -4,7 +4,7 @@ import { AlertCircle } from 'lucide-react';
 import { usePackages } from '@/hooks/usePackages';
 import { usePackagesPage } from '@/hooks/usePackagesPage';
 import { combineAsyncStates } from '@/hooks/useAsyncData';
-import { PackageCard, PageLoader, PageError } from '@/components/common';
+import { PackageCard, PageHeader, PageLoader, PageError } from '@/components/common';
 
 export default function Packages() {
   const packagesResult = usePackages();
@@ -18,16 +18,7 @@ export default function Packages() {
 
   return (
     <Layout>
-      {/* Header */}
-      <section className="relative py-24 border-b border-border">
-        <div className="container text-center max-w-3xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary">{page.hero.eyebrow}</span>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-foreground mt-2 mb-4">{page.hero.title}</h1>
-          <p className="text-muted-foreground">
-            {page.hero.description}
-          </p>
-        </div>
-      </section>
+      <PageHeader eyebrow={page.hero.eyebrow} title={page.hero.title} description={page.hero.description} image={page.heroImage} />
 
       {/* Packages Grid */}
       <section className="py-24">

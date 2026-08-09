@@ -222,7 +222,7 @@ export default function Reservations() {
                   </div>
 
                   {/* Action links */}
-                  <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
+                  <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-4 justify-center">
                     <button
                       onClick={handleReset}
                       className="btn-premium-secondary py-3 px-6 text-sm"
@@ -235,14 +235,15 @@ export default function Reservations() {
                     >
                       <Mail className="w-4 h-4" /> Email Operations Desk
                     </a>
-                    {settings?.contact.phone && (
+                    {(settings?.contact.phone ?? []).map((phone) => (
                       <a
-                        href={`tel:${settings.contact.phone.replace(/\s/g, '')}`}
+                        key={phone}
+                        href={`tel:${phone.replace(/\s/g, '')}`}
                         className="btn-premium-secondary py-3 px-6 text-sm flex items-center justify-center gap-2"
                       >
-                        <Phone className="w-4 h-4" /> Call {settings.contact.phone}
+                        <Phone className="w-4 h-4" /> Call {phone}
                       </a>
-                    )}
+                    ))}
                   </div>
                 </div>
               ) : (

@@ -61,7 +61,7 @@ export default function DiveSafaris() {
           <img
             src={activeSite.image}
             alt="Dive Safaris Header"
-            className="w-full h-full object-cover opacity-20 scale-105 transition-all duration-1000"
+            className="w-full h-full object-cover opacity-60 scale-105 transition-all duration-1000"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/85 to-background z-10" />
         </div>

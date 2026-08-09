@@ -9,12 +9,15 @@ interface PackageCardProps {
   variant?: 'compact' | 'full';
 }
 
+// EXPERIMENTAL — not final. Trying a gold/yellow accent across every
+// package card. Revert by dropping the gold classes below back to the
+// neutral/primary treatment.
 export function PackageCard({ pkg, variant = 'full' }: PackageCardProps) {
   if (variant === 'compact') {
     return (
       <div
         className={`glass-panel p-6 flex flex-col justify-between h-full relative ${
-          pkg.isBestValue ? 'border-primary/50 shadow-lg shadow-primary/10' : ''
+          pkg.isBestValue ? 'border-gold/70 bg-gold/5 shadow-lg shadow-gold/15' : 'border-gold/30 bg-gold/5'
         }`}
       >
         {pkg.isBestValue && (
@@ -52,11 +55,7 @@ export function PackageCard({ pkg, variant = 'full' }: PackageCardProps) {
 
         <Link
           href={`/reservations?package=${pkg.id}`}
-          className={`w-full text-center py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors ${
-            pkg.isBestValue
-              ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-              : 'bg-secondary text-foreground hover:bg-secondary/70 border border-border'
-          }`}
+          className="w-full text-center py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors bg-gold text-gold-foreground hover:bg-gold/90"
         >
           Book Package
         </Link>
@@ -66,8 +65,8 @@ export function PackageCard({ pkg, variant = 'full' }: PackageCardProps) {
 
   return (
     <div
-      className={`glass-panel p-8 flex flex-col justify-between h-full relative transition-all duration-300 ${
-        pkg.isBestValue ? 'border-primary/60 shadow-xl shadow-primary/5 scale-102 z-10' : 'hover:border-primary/30'
+      className={`glass-panel p-8 flex flex-col justify-between h-full relative transition-all duration-300 bg-gold/5 ${
+        pkg.isBestValue ? 'border-gold/70 shadow-xl shadow-gold/15 scale-102 z-10' : 'border-gold/30 hover:border-gold/60'
       }`}
     >
       {pkg.isBestValue && (
@@ -111,11 +110,7 @@ export function PackageCard({ pkg, variant = 'full' }: PackageCardProps) {
 
       <Link
         href={`/reservations?package=${pkg.id}`}
-        className={`w-full text-center py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 block ${
-          pkg.isBestValue
-            ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/30'
-            : 'bg-secondary text-foreground hover:bg-secondary/70 border border-border'
-        }`}
+        className="w-full text-center py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 block bg-gold text-gold-foreground hover:bg-gold/90 shadow-lg shadow-gold/20 hover:shadow-gold/30"
       >
         Book This Package
       </Link>

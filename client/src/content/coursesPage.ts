@@ -1,4 +1,5 @@
 import type { CoursesPage } from '@/types';
+import { shared } from './media';
 
 // Courses.tsx listing page content. These course blurbs are intentionally
 // independent from content/courses.ts and content/coursesDetail.ts — each
@@ -12,6 +13,7 @@ export const COURSES_PAGE: CoursesPage = {
     title: 'Diving Courses',
     description: 'Comprehensive training programs from beginner to professional levels. All courses taught by certified instructors with extensive experience.',
   },
+  heroImage: shared.scubaTraining,
   languagesSection: {
     title: 'Languages Offered',
     description: 'Courses and instruction available in:',

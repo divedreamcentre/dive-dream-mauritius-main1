@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import { Heart, Globe, CheckCircle2, type LucideIcon } from 'lucide-react';
 import { useAboutPage } from '@/hooks/useAboutPage';
 import { combineAsyncStates } from '@/hooks/useAsyncData';
-import { PageLoader, PageError } from '@/components/common';
+import { PageLoader, PageError, PageHeader } from '@/components/common';
 
 const ICONS: Record<string, LucideIcon> = { Heart, Globe };
 
@@ -17,16 +17,7 @@ export default function About() {
 
   return (
     <Layout>
-      {/* Header */}
-      <section className="relative py-24 border-b border-border">
-        <div className="container text-center max-w-3xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary">{page.hero.eyebrow}</span>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-foreground mt-2 mb-4">{page.hero.title}</h1>
-          <p className="text-muted-foreground">
-            {page.hero.description}
-          </p>
-        </div>
-      </section>
+      <PageHeader eyebrow={page.hero.eyebrow} title={page.hero.title} description={page.hero.description} image={page.heroImage} />
 
       {/* History & Mission */}
       <section className="py-24">

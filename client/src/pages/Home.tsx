@@ -185,11 +185,11 @@ export default function Home() {
               }}
             />
           ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/95 via-foreground/55 to-foreground/25" />
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground via-transparent to-foreground/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
         </div>
 
-        <div className="container relative z-10 pt-36 pb-24 md:pt-44 md:pb-28">
+        <div className="container relative z-10 pt-40 pb-32 md:pt-48 md:pb-40">
           <div className="max-w-xl text-left">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 border border-gold/30 mb-6">
               <Waves className="w-4 h-4 text-gold" />

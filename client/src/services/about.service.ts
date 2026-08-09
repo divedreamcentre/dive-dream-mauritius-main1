@@ -21,9 +21,10 @@ interface RawActivity {
 }
 
 interface RawAboutPage {
-  hero: RawSectionHeading;
-  mission: RawSectionHeading & { points?: unknown; image?: StrapiMedia | null };
-  conservation: RawSectionHeading & { initiatives?: RawActivity[]; image?: StrapiMedia | null };
+  hero?: RawSectionHeading | null;
+  heroImage?: StrapiMedia | null;
+  mission?: (RawSectionHeading & { points?: unknown; image?: StrapiMedia | null }) | null;
+  conservation?: (RawSectionHeading & { initiatives?: RawActivity[]; image?: StrapiMedia | null }) | null;
 }
 
 function mapActivity(raw: RawActivity, index: number): Activity {
@@ -36,22 +37,33 @@ function mapActivity(raw: RawActivity, index: number): Activity {
   };
 }
 
+// Each section below falls back to the matching local section as a whole
+// (rather than the whole page bailing to ABOUT_PAGE) so an editor can fill
+// in just e.g. `heroImage` in Strapi without also having to author mission
+// and conservation copy for the page to keep rendering real content.
 export async function getAboutPage(): Promise<AboutPage> {
   try {
     const raw = await fetchAPI<StrapiSingleResponse<RawAboutPage>>(ENDPOINTS.aboutPage);
     const entry = unwrapSingle(raw);
     return {
-      hero: mapSectionHeading(entry.hero),
-      mission: {
-        ...mapSectionHeading(entry.mission),
-        points: Array.isArray(entry.mission.points) ? (entry.mission.points as string[]) : [],
-        image: resolveStrapiMediaUrl(entry.mission.image),
-      },
-      conservation: {
-        ...mapSectionHeading(entry.conservation),
-        initiatives: (entry.conservation.initiatives ?? []).map(mapActivity),
-        image: resolveStrapiMediaUrl(entry.conservation.image),
-      },
+      hero: entry.hero ? mapSectionHeading(entry.hero) : ABOUT_PAGE.hero,
+      heroImage: resolveStrapiMediaUrl(entry.heroImage) || ABOUT_PAGE.heroImage,
+      mission: entry.mission
+        ? {
+            ...mapSectionHeading(entry.mission),
+            points: Array.isArray(entry.mission.points) ? (entry.mission.points as string[]) : ABOUT_PAGE.mission.points,
+            image: resolveStrapiMediaUrl(entry.mission.image) || ABOUT_PAGE.mission.image,
+          }
+        : ABOUT_PAGE.mission,
+      conservation: entry.conservation
+        ? {
+            ...mapSectionHeading(entry.conservation),
+            initiatives: entry.conservation.initiatives?.length
+              ? entry.conservation.initiatives.map(mapActivity)
+              : ABOUT_PAGE.conservation.initiatives,
+            image: resolveStrapiMediaUrl(entry.conservation.image) || ABOUT_PAGE.conservation.image,
+          }
+        : ABOUT_PAGE.conservation,
     };
   } catch (err) {
     console.warn('[Strapi] about-page single type not found yet, using local content fallback', err);

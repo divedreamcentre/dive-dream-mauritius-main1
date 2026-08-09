@@ -3,7 +3,7 @@ import type { Testimonial } from '@/types';
 
 export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="glass-panel p-8 flex flex-col justify-between h-full">
+    <div className="glass-panel p-8 flex flex-col justify-between h-full border-gold/30 bg-gold/5">
       <div>
         <div className="flex gap-1 mb-6">
           {[...Array(testimonial.rating)].map((_, i) => (

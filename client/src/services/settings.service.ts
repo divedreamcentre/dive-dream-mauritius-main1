@@ -14,7 +14,10 @@ interface RawWebsiteSettings {
   siteName: string;
   tagline: string;
   logo: StrapiMedia | null;
-  contact: WebsiteSettings['contact'];
+  // `phone` is typed loosely here since Strapi currently has this as a
+  // single Text field (a bare string) rather than the repeatable field the
+  // frontend now expects for showing 2 numbers — see normalizePhones().
+  contact: Omit<WebsiteSettings['contact'], 'phone'> & { phone?: unknown };
   socialLinks?: SocialLink[];
   navLinks?: NavLink[];
   secondaryLinks?: NavLink[];
@@ -29,6 +32,23 @@ interface RawWebsiteSettings {
   };
 }
 
+// Strapi's `contact.phone` may come back as: a true repeatable field
+// (string array), a single Text field holding just one number, or a single
+// Text field where an editor typed multiple numbers separated by "/" or ","
+// (the simplest way to enter 2 numbers without a schema change). All three
+// shapes are normalized into a clean string array here.
+function normalizePhones(raw: unknown): string[] | undefined {
+  if (Array.isArray(raw)) {
+    const phones = raw.filter((p): p is string => typeof p === 'string' && p.trim().length > 0);
+    return phones.length ? phones : undefined;
+  }
+  if (typeof raw === 'string' && raw.trim().length > 0) {
+    const phones = raw.split(/[/,]/).map((p) => p.trim()).filter(Boolean);
+    return phones.length ? phones : undefined;
+  }
+  return undefined;
+}
+
 export async function getWebsiteSettings(): Promise<WebsiteSettings> {
   try {
     const raw = await fetchAPI<StrapiSingleResponse<RawWebsiteSettings>>(ENDPOINTS.websiteSettings);
@@ -37,7 +57,11 @@ export async function getWebsiteSettings(): Promise<WebsiteSettings> {
       siteName: entry.siteName,
       tagline: entry.tagline,
       logo: resolveStrapiMediaUrl(entry.logo) || WEBSITE_SETTINGS.logo,
-      contact: { ...WEBSITE_SETTINGS.contact, ...entry.contact },
+      contact: {
+        ...WEBSITE_SETTINGS.contact,
+        ...entry.contact,
+        phone: normalizePhones(entry.contact?.phone) ?? WEBSITE_SETTINGS.contact.phone,
+      },
       // These four fields are structural — if Strapi has the singleton but
       // an editor cleared one of these repeatable fields (or just never
       // filled it in), `?? []` used to render the nav/social icons/footer

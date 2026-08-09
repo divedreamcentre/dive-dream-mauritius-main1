@@ -21,7 +21,8 @@ export interface NavLink {
 }
 
 export interface ContactInfo {
-  phone: string;
+  /** Multiple numbers supported — rendered in the order given. */
+  phone: string[];
   email: string;
   address: string;
   whatsapp: string;

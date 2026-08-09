@@ -48,7 +48,7 @@ export default function Contact() {
 
   const contactItems = [
     { icon: MapPin, label: 'Dive Center Location', value: settings.contact.address },
-    { icon: Phone, label: 'Telephone', value: settings.contact.phone },
+    { icon: Phone, label: 'Telephone', value: settings.contact.phone.join(' / ') },
     { icon: Mail, label: 'Email', value: settings.contact.email },
     { icon: Clock, label: 'Operations Hours', value: settings.contact.operatingHours ?? '' },
   ];

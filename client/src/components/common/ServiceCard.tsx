@@ -18,7 +18,7 @@ const SERVICE_ICONS: Record<string, typeof Plane> = {
 export function ServiceCard({ service, variant = 'full' }: ServiceCardProps) {
   if (variant === 'compact') {
     return (
-      <div className="glass-panel overflow-hidden group flex flex-col h-full">
+      <div className="glass-panel overflow-hidden group flex flex-col h-full border-gold/30 bg-gold/5 hover:border-gold/60 transition-colors">
         <div className="h-48 overflow-hidden relative">
           <img
             src={service.image}
@@ -28,14 +28,14 @@ export function ServiceCard({ service, variant = 'full' }: ServiceCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10" />
         </div>
         <div className="p-6 flex flex-col flex-grow">
-          <h3 className="text-lg font-serif font-bold text-foreground mb-2 group-hover:text-primary transition-colors flex-grow">
+          <h3 className="text-lg font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors flex-grow">
             {service.title}
           </h3>
           <div className="border-t border-border pt-4 flex items-center justify-between">
             <span className="text-sm font-bold text-foreground">{service.price}</span>
             <Link
               href={`/services/${service.id}`}
-              className="text-xs text-primary font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1 py-2.5 -my-2.5"
+              className="text-xs text-gold font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1 py-2.5 -my-2.5"
             >
               View Details <ArrowRight className="w-3.5 h-3.5" />
             </Link>
@@ -48,7 +48,7 @@ export function ServiceCard({ service, variant = 'full' }: ServiceCardProps) {
   const Icon = SERVICE_ICONS[service.id] ?? Coffee;
 
   return (
-    <div className="glass-panel overflow-hidden group flex flex-col h-full justify-between">
+    <div className="glass-panel overflow-hidden group flex flex-col h-full justify-between border-gold/30 bg-gold/5 hover:border-gold/60 transition-colors">
       <div>
         <div className="h-52 overflow-hidden relative">
           <img
@@ -77,7 +77,7 @@ export function ServiceCard({ service, variant = 'full' }: ServiceCardProps) {
           </div>
           <Link
             href={`/services/${service.id}`}
-            className="btn-premium-primary !px-4 !py-2 text-xs uppercase tracking-wider font-bold"
+            className="btn-premium-gold !px-4 !py-2 text-xs uppercase tracking-wider font-bold"
           >
             View Details
           </Link>

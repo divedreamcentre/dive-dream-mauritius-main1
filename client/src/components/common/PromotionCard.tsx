@@ -20,7 +20,7 @@ const PROMOTION_ICONS: Record<string, typeof Tag> = {
 export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyCode }: PromotionCardProps) {
   if (variant === 'compact') {
     return (
-      <div className="glass-panel p-8 flex flex-col justify-between h-full">
+      <div className="glass-panel p-8 flex flex-col justify-between h-full border-gold/30 bg-gold/5">
         <div>
           <div className="flex justify-between items-start mb-6">
             <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
@@ -40,7 +40,7 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
           </span>
           <Link
             href={promotion.ctaHref ?? `/reservations?promo=${promotion.code}`}
-            className="text-xs text-primary font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1 py-2.5 -my-2.5"
+            className="text-xs text-gold font-bold uppercase tracking-wider hover:underline inline-flex items-center gap-1 py-2.5 -my-2.5"
           >
             Apply <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -54,8 +54,8 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
 
   return (
     <div
-      className={`glass-panel p-8 flex flex-col justify-between h-full relative transition-all duration-300 ${
-        isCampaign ? 'border-primary/60 shadow-xl shadow-primary/5 scale-102 z-10' : 'hover:border-primary/30'
+      className={`glass-panel p-8 flex flex-col justify-between h-full relative transition-all duration-300 bg-gold/5 ${
+        isCampaign ? 'border-gold/70 shadow-xl shadow-gold/15 scale-102 z-10' : 'border-gold/30 hover:border-gold/60'
       }`}
     >
       {isCampaign && (
@@ -69,7 +69,7 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
           <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
             <Icon className="w-6 h-6 text-primary" />
           </div>
-          <span className="text-3xl font-serif font-bold text-primary">{promotion.discount}</span>
+          <span className="text-3xl font-serif font-bold text-gold">{promotion.discount}</span>
         </div>
 
         <h3 className="text-xl font-serif font-bold text-foreground mb-4">{promotion.title}</h3>
@@ -123,7 +123,7 @@ export function PromotionCard({ promotion, variant = 'full', copiedCode, onCopyC
 
         <Link
           href={promotion.ctaHref ?? `/reservations?promo=${promotion.code}`}
-          className="w-full text-center py-3 rounded-full text-xs font-bold uppercase tracking-widest bg-primary text-primary-foreground hover:bg-primary/90 transition-colors block"
+          className="w-full text-center py-3 rounded-full text-xs font-bold uppercase tracking-widest bg-gold text-gold-foreground hover:bg-gold/90 transition-colors block"
         >
           {promotion.ctaLabel ?? 'Apply Promo Now'}
         </Link>

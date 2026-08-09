@@ -9,11 +9,11 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
   tagline: 'UNDERWATER FEELS LIKE HOME',
   logo: branding.logo,
   contact: {
-    phone: '+230 57535352',
+    phone: ['+230 57535352', '+230 58310098'],
     email: 'divedreamcentre@gmail.com',
     address: 'Becosy Hotel, Royal Road, Trou aux Biches',
     whatsapp: 'https://wa.me/23057535352',
-    operatingHours: 'Daily: 07:00 AM - 06:00 PM GMT+8',
+    operatingHours: 'Daily: 08:30 AM - 04:30 PM',
   },
   // TODO: replace with the real profile URLs once provided.
   socialLinks: [

@@ -2,7 +2,7 @@ import Layout from '@/components/Layout';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { useRebreatherDivingPage } from '@/hooks/useRebreatherDivingPage';
-import { PageLoader, PageError, IconFeatureGrid } from '@/components/common';
+import { PageLoader, PageError, IconFeatureGrid, PageHeader } from '@/components/common';
 
 // TODO: this page is built entirely from placeholder copy — see
 // content/rebreatherDiving.ts for every spot marked TODO that needs real
@@ -15,16 +15,7 @@ export default function RebreatherDiving() {
 
   return (
     <Layout>
-      {/* Header */}
-      <section className="relative py-24 border-b border-border">
-        <div className="container text-center max-w-3xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary">{page.hero.eyebrow}</span>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-foreground mt-2 mb-4">{page.hero.title}</h1>
-          <p className="text-muted-foreground">
-            {page.hero.description}
-          </p>
-        </div>
-      </section>
+      <PageHeader eyebrow={page.hero.eyebrow} title={page.hero.title} description={page.hero.description} image={page.heroImage} />
 
       {/* What Is It */}
       <section className="py-24">
