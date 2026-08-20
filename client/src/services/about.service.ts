@@ -3,14 +3,18 @@ import type { StrapiMedia, StrapiSingleResponse } from '@/types/strapi';
 import { ABOUT_PAGE } from '@/content';
 import { fetchAPI } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
-import { mapSectionHeading, resolveStrapiMediaUrl, unwrapSingle, type RawSectionHeading } from '@/lib/strapiMappers';
+import { mapSectionHeading, normalizeStringArray, resolveStrapiMediaUrl, unwrapSingle, type RawSectionHeading } from '@/lib/strapiMappers';
 
-// NOTE: the `about-page` single type doesn't exist in Strapi yet (verified
-// live — every naming variant returned 404), so this always falls back to
-// local content today. Wiring + mapper are in place so it activates
-// automatically the moment the single type is published — see the
-// BoatPage service for the same pattern repeated across every
-// not-yet-built single type.
+// NOTE: `about-page` is live in Strapi. Its `mission`/`conservation`
+// components each nest the reusable section-heading component under a
+// `heading` sub-field (confirmed against the live API response) rather than
+// spreading eyebrow/title/description directly on the section — unlike
+// `hero`, which *is* a section-heading component so it's flat. Mixing these
+// two shapes up is what caused a production crash: mapSectionHeading(raw)
+// falls back `title: raw?.title ?? raw?.heading`, so when `heading` is an
+// object (not a string alias) instead of undefined, the whole raw component
+// object — `{id, eyebrow, title, description}` — got assigned as `title`
+// and rendered straight into JSX (React error #31).
 interface RawActivity {
   id?: number;
   documentId?: string;
@@ -20,11 +24,18 @@ interface RawActivity {
   image?: StrapiMedia | null;
 }
 
+interface RawSectionWithHeading {
+  heading?: RawSectionHeading | null;
+  points?: unknown;
+  initiatives?: RawActivity[];
+  image?: StrapiMedia | null;
+}
+
 interface RawAboutPage {
   hero?: RawSectionHeading | null;
   heroImage?: StrapiMedia | null;
-  mission?: (RawSectionHeading & { points?: unknown; image?: StrapiMedia | null }) | null;
-  conservation?: (RawSectionHeading & { initiatives?: RawActivity[]; image?: StrapiMedia | null }) | null;
+  mission?: RawSectionWithHeading | null;
+  conservation?: RawSectionWithHeading | null;
 }
 
 function mapActivity(raw: RawActivity, index: number): Activity {
@@ -50,14 +61,14 @@ export async function getAboutPage(): Promise<AboutPage> {
       heroImage: resolveStrapiMediaUrl(entry.heroImage) || ABOUT_PAGE.heroImage,
       mission: entry.mission
         ? {
-            ...mapSectionHeading(entry.mission),
-            points: Array.isArray(entry.mission.points) ? (entry.mission.points as string[]) : ABOUT_PAGE.mission.points,
+            ...mapSectionHeading(entry.mission.heading),
+            points: entry.mission.points ? normalizeStringArray(entry.mission.points) : ABOUT_PAGE.mission.points,
             image: resolveStrapiMediaUrl(entry.mission.image) || ABOUT_PAGE.mission.image,
           }
         : ABOUT_PAGE.mission,
       conservation: entry.conservation
         ? {
-            ...mapSectionHeading(entry.conservation),
+            ...mapSectionHeading(entry.conservation.heading),
             initiatives: entry.conservation.initiatives?.length
               ? entry.conservation.initiatives.map(mapActivity)
               : ABOUT_PAGE.conservation.initiatives,
@@ -66,7 +77,7 @@ export async function getAboutPage(): Promise<AboutPage> {
         : ABOUT_PAGE.conservation,
     };
   } catch (err) {
-    console.warn('[Strapi] about-page single type not found yet, using local content fallback', err);
+    console.warn('[Strapi] about-page request failed, using local content fallback', err);
     return ABOUT_PAGE;
   }
 }
