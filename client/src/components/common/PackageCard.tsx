@@ -99,10 +99,6 @@ export function PackageCard({ pkg, variant = 'full' }: PackageCardProps) {
           </li>
           <li className="flex items-center gap-2.5">
             <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-            <span>Elite Marine Biologist Guide</span>
-          </li>
-          <li className="flex items-center gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
             <span>Refreshments & Fruits Onboard</span>
           </li>
         </ul>

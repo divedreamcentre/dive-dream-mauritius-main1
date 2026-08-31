@@ -10,7 +10,7 @@ export const WEBSITE_SETTINGS: WebsiteSettings = {
   logo: branding.logo,
   contact: {
     phone: ['+230 57535352', '+230 58310098'],
-    email: 'divedreamcentre@gmail.com',
+    email: 'reservations@divedreammauritius.com',
     address: 'Becosy Hotel, Royal Road, Trou aux Biches',
     whatsapp: 'https://wa.me/23057535352',
     operatingHours: 'Daily: 08:30 AM - 04:30 PM',
